@@ -1,0 +1,66 @@
+\RequirePackage{plautopatch}
+
+%%%%% VERBOSE %%%%%
+% [TODO]
+% * BEGIN OF FTNRIGHT が最後に一回余分に出ていて END と数が合わない
+% * Begin Of Files と End Of Files が最後に一組多く出る
+\AtBeginOfPackageFile{ftnright}{\typeout{BEGIN OF FTNRIGHT}}
+\AtEndOfPackageFile{ftnright}{\typeout{END OF FTNRIGHT}}
+\AtBeginOfPackageFile{pxftnright}{\typeout{BEGIN OF PXFTNRIGHT}}
+\AtEndOfPackageFile{pxftnright}{\typeout{END OF PXFTNRIGHT}}
+\AtBeginOfFiles{\typeout{Begin Of Files}}
+\AtEndOfFiles{\typeout{End Of Files}}
+%%%%%
+
+\documentclass[a4paper,twocolumn]{tarticle}
+
+%% Test: delarray
+\usepackage{delarray}
+%%
+
+%% Test: ftnright
+\usepackage{ftnright}
+\def\hoge{ほげほげ。ふがふがふが。ぴよぴよぴよぴよ。} % ダミーテキスト用
+\def\HOGE{\hoge\hoge\hoge\hoge\hoge\hoge\hoge\hoge} % 長めのダミーテキストを準備
+%%
+
+\begin{document}
+
+[ftnright]
+
+\HOGE\HOGE 脚注を\footnote{脚注です。}入れます。\HOGE
+
+\HOGE もう一つ脚注を\footnote{ふたつめの脚注です。}入れます。
+
+\begin{table}[b]
+  \begin{tabular}{ll}
+    \hline
+    AAA & BBB \\
+    CCC & DDD \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\HOGE さらに脚注を\footnote{みっつめの脚注です。}入れます。
+\HOGE
+
+[delarray]
+
+\[
+  \begin{array}<t>[t]\{{c}\}
+    3 \\ 4 \\ 5  \end{array}
+  \begin{array}<t>[c]\{{c}\}
+    2 \\ 3 \\ 4  \end{array}
+  \begin{array}<t>[b]\{{c}\}
+    1 \\ 2 \\ 3  \end{array}
+\]
+\[
+  \newcolumntype{L}{>{$}l<{$}}
+  f(x)=
+    \begin{array}<t>\{{lL}.
+      0 & if $x=0$ \\
+      \sin(x)/x & otherwise
+    \end{array}
+\]
+
+\end{document}
