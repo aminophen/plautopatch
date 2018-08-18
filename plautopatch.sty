@@ -9,7 +9,7 @@
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{plautopatch}
     [2018/08/18 v0.1a Automated patches for pLaTeX/upLaTeX]
-\def\pxgtmb@pkgname{plautopatch}
+\def\platpc@pkgname{plautopatch}
 
 \RequirePackage{filehook}
 
@@ -18,13 +18,24 @@
 %% \platpc@patch@after{<orig>}{<patch>}
 % = Load <patch> after <orig>.
 \def\platpc@patch@after#1#2{%
-  \AtEndOfPackageFile{#1}{\RequirePackage{#2}}%
+  \expandafter\def\csname platpc@end@#1\endcsname{%
+    \RequirePackage{#2}%
+  }%
+  \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
 }
 %% \platpc@patch@after@both{<orig 1>}{<orig 2>}{<patch>}
-% = Load <patch> after both <orig 1 & 2>.
+% = Load <patch> after both <orig 1> & <orig 2>.
 \def\platpc@patch@after@both#1#2#3{%
-  \AtEndOfPackageFile{#1}{\@ifpackageloaded{#2}{\RequirePackage{#3}}{}}%
-  \AtEndOfPackageFile{#2}{\@ifpackageloaded{#1}{\RequirePackage{#3}}{}}%
+  % for order #2 => #1
+  \expandafter\def\csname platpc@end@#1+#2\endcsname{%
+    \@ifpackageloaded{#2}{\RequirePackage{#3}}{}%
+  }%
+  \AtEndOfPackageFile{#1}{\csname platpc@end@#1+#2\endcsname}%
+  % for order #1 => #2
+  \expandafter\def\csname platpc@end@#2+#1\endcsname{%
+    \@ifpackageloaded{#1}{\RequirePackage{#3}}{}%
+  }%
+  \AtEndOfPackageFile{#2}{\csname platpc@end@#2+#1\endcsname}%
 }
 
 %% \platpc@patch@before{<orig>}{<patch>}
