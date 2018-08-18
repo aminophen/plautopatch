@@ -12,7 +12,7 @@ The following patches are currently registered:
 - delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
 - everysel (ms) -> pxeverysel (platex-tools)
 - everyshi (ms) -> pxeveryshi (platex-tools)
-- atbegshi (ms) -> pxatbegshi (platex-tools)
+- atbegshi (oberdiek) -> pxatbegshi (platex-tools)
 - ftnright (latex-tools) -> pxftnright (platex-tools)
 
 ## Installation
