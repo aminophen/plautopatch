@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{plautopatch}
-    [2018/08/18 v0.1a Automated patches for pLaTeX/upLaTeX]
+    [2018/08/18 v0.1c Automated patches for pLaTeX/upLaTeX]
 \def\platpc@pkgname{plautopatch}
 
 \RequirePackage{filehook}
@@ -19,7 +19,9 @@
 % = Load <patch> after <orig>.
 \def\platpc@patch@after#1#2{%
   \expandafter\def\csname platpc@end@#1\endcsname{%
-    \RequirePackage{#2}%
+    \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
+      \RequirePackage{#2}%
+    \fi
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
 }
@@ -30,12 +32,20 @@
 \def\platpc@patch@after@both#1#2#3{%
   % for order #2 => #1
   \expandafter\def\csname platpc@end@#1+#2\endcsname{%
-    \@ifpackageloaded{#2}{\RequirePackage{#3}}{}%
+    \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
+     \expandafter\ifx\csname platpc@disable@#2\endcsname\relax
+      \@ifpackageloaded{#2}{\RequirePackage{#3}}{}%
+     \fi
+    \fi
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1+#2\endcsname}%
   % for order #1 => #2
   \expandafter\def\csname platpc@end@#2+#1\endcsname{%
-    \@ifpackageloaded{#1}{\RequirePackage{#3}}{}%
+    \expandafter\ifx\csname platpc@disable@#2\endcsname\relax
+     \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
+      \@ifpackageloaded{#1}{\RequirePackage{#3}}{}%
+     \fi
+    \fi
   }%
   \AtEndOfPackageFile{#2}{\csname platpc@end@#2+#1\endcsname}%
 }
@@ -48,22 +58,24 @@
 %   - <patch> contains \RequirePackage{<orig>}
 \def\platpc@patch@before#1#2{%
   \expandafter\def\csname platpc@begin@#1\endcsname{%
-    % the code (*!) should be used only once,
-    % remove it immediately when this macro is executed
-    \expandafter\let\csname platpc@begin@#1\endcsname\relax
-    % pretend as if <orig> not loaded
-    \expandafter\let\csname ver@#1.sty\endcsname\relax
-    % load the <patch> package
-    \RequirePackage{#2}%
-    % avoid loading <orig> twice by discarding "\@@input <orig>" (*!)
-    \let\platpc@filehook@@atbegin\filehook@@atbegin
-    \def\filehook@@atbegin\@@input####1\filehook@atend{%
-      \let\filehook@@atbegin\platpc@filehook@@atbegin
-      % avoid infinite loop even when \AtEndOfPackageFile used
-      \expandafter\let\csname filehook@atend@#1.sty\endcsname\relax
-      \filehook@@atbegin
-      \filehook@atend}%
-    % all done
+    \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
+      % the code (*!) should be used only once,
+      % remove it immediately when this macro is executed
+      \expandafter\let\csname platpc@begin@#1\endcsname\relax
+      % pretend as if <orig> not loaded
+      \expandafter\let\csname ver@#1.sty\endcsname\relax
+      % load the <patch> package
+      \RequirePackage{#2}%
+      % avoid loading <orig> twice by discarding "\@@input <orig>" (*!)
+      \let\platpc@filehook@@atbegin\filehook@@atbegin
+      \def\filehook@@atbegin\@@input####1\filehook@atend{%
+        \let\filehook@@atbegin\platpc@filehook@@atbegin
+        % avoid infinite loop even when \AtEndOfPackageFile used
+        \expandafter\let\csname filehook@atend@#1.sty\endcsname\relax
+        \filehook@@atbegin
+        \filehook@atend}%
+      % all done
+    \fi
   }%
   \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
 }
@@ -78,5 +90,16 @@
 \platpc@patch@after{everyshi}{pxeveryshi}% platex-tools
 \platpc@patch@after{atbegshi}{pxatbegshi}% platex-tools
 \platpc@patch@before{ftnright}{pxftnright}% platex-tools
+
+% interface for users who want don't patches
+
+%% \plautopatchdisable{<orig 1>,<orig 2>,...}
+% = Disable patches triggered by <orig 1>, <orig 2>, ...
+\newcommand{\plautopatchdisable}[1]{%
+  \edef\@tempa{\zap@space#1 \@empty}%
+  \@for\@tempa:=\@tempa\do{%
+    \expandafter\let\csname platpc@disable@\@tempa\endcsname\@empty
+  }%
+}
 
 \endinput
