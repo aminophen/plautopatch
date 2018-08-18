@@ -23,6 +23,8 @@
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
 }
+\@onlypreamble\platpc@patch@after
+
 %% \platpc@patch@after@both{<orig 1>}{<orig 2>}{<patch>}
 % = Load <patch> after both <orig 1> & <orig 2>.
 \def\platpc@patch@after@both#1#2#3{%
@@ -37,6 +39,7 @@
   }%
   \AtEndOfPackageFile{#2}{\csname platpc@end@#2+#1\endcsname}%
 }
+\@onlypreamble\platpc@patch@after@both
 
 %% \platpc@patch@before{<orig>}{<patch>}
 % = Load <patch> before <orig>.
@@ -64,6 +67,7 @@
   }%
   \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
 }
+\@onlypreamble\platpc@patch@before
 
 % register patches
 
