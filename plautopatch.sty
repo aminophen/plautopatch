@@ -81,16 +81,6 @@
 }
 \@onlypreamble\platpc@patch@before
 
-% register patches
-
-\platpc@patch@after{array}{plarray}% platex-tools
-\platpc@patch@after@both{array}{plext}{plextarray}% platex-tools
-\platpc@patch@after@both{delarray}{plext}{plextdelarray}% platex-tools
-\platpc@patch@after{everysel}{pxeverysel}% platex-tools
-\platpc@patch@after{everyshi}{pxeveryshi}% platex-tools
-\platpc@patch@after{atbegshi}{pxatbegshi}% platex-tools
-\platpc@patch@before{ftnright}{pxftnright}% platex-tools
-
 % interface for users who want don't patches
 
 %% \plautopatchdisable{<orig 1>,<orig 2>,...}
@@ -101,5 +91,22 @@
     \expandafter\let\csname platpc@disable@\@tempa\endcsname\@empty
   }%
 }
+\@onlypreamble\plautopatchdisable
+
+% register patches
+
+\ifx\enablecjktoken\@undefined
+  \platpc@patch@after{tracefnt}{ptrace}% platex
+\else
+  \platpc@patch@after{tracefnt}{uptrace}% uplatex
+\fi
+\platpc@patch@after{fltrace}{pfltrace}% platex
+\platpc@patch@after{array}{plarray}% platex-tools
+\platpc@patch@after@both{array}{plext}{plextarray}% platex-tools
+\platpc@patch@after@both{delarray}{plext}{plextdelarray}% platex-tools
+\platpc@patch@after{everysel}{pxeverysel}% platex-tools
+\platpc@patch@after{everyshi}{pxeveryshi}% platex-tools
+\platpc@patch@after{atbegshi}{pxatbegshi}% platex-tools
+\platpc@patch@before{ftnright}{pxftnright}% platex-tools
 
 \endinput

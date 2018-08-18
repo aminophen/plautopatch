@@ -14,6 +14,9 @@
 
 \documentclass[a4paper,twocolumn]{tarticle}
 
+%% Test: tracefnt
+\usepackage{tracefnt}
+
 %% Test: delarray
 \usepackage{delarray}
 %%
@@ -26,9 +29,13 @@
 
 \begin{document}
 
+[tracefnt]
+
+\HOGE {\Large\hoge}
+
 [ftnright]
 
-\HOGE\HOGE 脚注を\footnote{脚注です。}入れます。\HOGE
+\HOGE 脚注を\footnote{脚注です。}入れます。\HOGE
 
 \HOGE もう一つ脚注を\footnote{ふたつめの脚注です。}入れます。
 
