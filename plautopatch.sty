@@ -8,8 +8,10 @@
 
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{plautopatch}
-    [2018/08/20 v0.1f Automated patches for pLaTeX/upLaTeX]
+    [2018/08/21 v0.2 Automated patches for pLaTeX/upLaTeX]
 \def\platpc@pkgname{plautopatch}
+\def\platpc@warn{\PackageWarningNoLine\platpc@pkgname}
+\def\platpc@info{\PackageInfo\platpc@pkgname}
 
 \RequirePackage{filehook}
 
@@ -115,7 +117,7 @@
 \AtEndDocument{\platpc@showlist}
 \def\platpc@showlist{%
   \ifx\platpc@list\@empty
-    \PackageInfo\platpc@pkgname{No additional packages loaded}
+    \platpc@info{No additional packages loaded}
   \else
     % the first token of \platpc@list should be ','
     \typeout{%
@@ -140,5 +142,6 @@
 \platpc@patch@after{everyshi}{pxeveryshi}% platex-tools
 \platpc@patch@after{atbegshi}{pxatbegshi}% platex-tools
 \platpc@patch@before{ftnright}{pxftnright}% platex-tools
+\platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
 
 \endinput
