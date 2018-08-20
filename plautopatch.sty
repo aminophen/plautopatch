@@ -80,7 +80,7 @@
       % pretend as if <orig> not loaded
       \expandafter\let\csname ver@#1.sty\endcsname\relax
       % load the <patch> package
-      \RequirePackage{#2}%
+      \RequirePackage{#2}\platpc@addtolist{#2}%
       % avoid loading <orig> twice by discarding "\@@input <orig>" (*!)
       \let\platpc@filehook@@atbegin\filehook@@atbegin
       \def\filehook@@atbegin\@@input####1\filehook@atend{%
