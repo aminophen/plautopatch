@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{plautopatch}
-    [2018/08/18 v0.1c Automated patches for pLaTeX/upLaTeX]
+    [2018/08/20 v0.1e Automated patches for pLaTeX/upLaTeX]
 \def\platpc@pkgname{plautopatch}
 
 \RequirePackage{filehook}
@@ -24,7 +24,7 @@
 
 %% \platpc@addtolist{<package>}
 % = add <package> to list named \platpc@list.
-\def\platpc@addtolist{\g@addto@macro\platpc@list}
+\def\platpc@addtolist#1{\xdef\platpc@list{\platpc@list, #1}}
 \def\platpc@list{}% initialize
 
 % high-level helpers
@@ -110,12 +110,16 @@
 \@onlypreamble\plautopatchdisable
 
 % show list of loaded patches
-\AtEndDocument{%
-  \ifx\platpc@list\@empty\else
+\AtEndDocument{\platpc@showlist}
+\def\platpc@showlist{%
+  \ifx\platpc@list\@empty
+    \PackageInfo\platpc@pkgname{No additional packages loaded}
+  \else
+    % the first token of \platpc@list should be ','
     \typeout{%
-      Package `\platpc@pkgname' automatically loaded:\MessageBreak
-      \platpc@list
-    }%
+      ***** List of packages loaded by `\platpc@pkgname': *****^^J%
+      \expandafter\@gobble\platpc@list.^^J%
+      *****************************************************}%
   \fi
 }
 
