@@ -72,26 +72,27 @@
 %   - <patch> contains \RequirePackage{<orig>}
 \def\platpc@patch@before#1#2{%
   \expandafter\def\csname platpc@begin@#1\endcsname{%
-   \@ifpackageloaded{#2}{}{%
-    \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
-      % the code (*!) should be used only once,
-      % remove it immediately when this macro is executed
-      \expandafter\let\csname platpc@begin@#1\endcsname\relax
-      % pretend as if <orig> not loaded
-      \expandafter\let\csname ver@#1.sty\endcsname\relax
-      % load the <patch> package
-      \RequirePackage{#2}\platpc@addtolist{#2}%
-      % avoid loading <orig> twice by discarding "\@@input <orig>" (*!)
-      \let\platpc@filehook@@atbegin\filehook@@atbegin
-      \def\filehook@@atbegin\@@input####1\filehook@atend{%
-        \let\filehook@@atbegin\platpc@filehook@@atbegin
-        % avoid infinite loop even when \AtEndOfPackageFile used
-        \expandafter\let\csname filehook@atend@#1.sty\endcsname\relax
-        \filehook@@atbegin
-        \filehook@atend}%
-      % all done
-    \fi
-   }%
+    % if <patch> is already loaded, nothing to do
+    \@ifpackageloaded{#2}{}{% else
+      \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
+        % the code (*!) should be used only once,
+        % remove it immediately when this macro is executed
+        \expandafter\let\csname platpc@begin@#1\endcsname\relax
+        % pretend as if <orig> not loaded
+        \expandafter\let\csname ver@#1.sty\endcsname\relax
+        % load the <patch> package
+        \RequirePackage{#2}\platpc@addtolist{#2}%
+        % avoid loading <orig> twice by discarding "\@@input <orig>" (*!)
+        \let\platpc@filehook@@atbegin\filehook@@atbegin
+        \def\filehook@@atbegin\@@input####1\filehook@atend{%
+          \let\filehook@@atbegin\platpc@filehook@@atbegin
+          % avoid infinite loop even when \AtEndOfPackageFile used
+          \expandafter\let\csname filehook@atend@#1.sty\endcsname\relax
+          \filehook@@atbegin
+          \filehook@atend}%
+        % all done
+      \fi
+    }%
   }%
   \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
 }
