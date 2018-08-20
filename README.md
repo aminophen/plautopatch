@@ -7,6 +7,8 @@ patches automatically.
 
 The following patches are currently registered:
 
+- tracefnt (latex) -> ptrace/uptrace (platex/uplatex)
+- fltrace (latex) -> pfltrace (platex)
 - array (latex-tools) -> plarray (platex-tools)
 - array (latex-tools) + plext (platex) -> plextarray (platex-tools)
 - delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
