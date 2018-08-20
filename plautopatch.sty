@@ -20,7 +20,7 @@
 \def\platpc@patch@after#1#2{%
   \expandafter\def\csname platpc@end@#1\endcsname{%
     \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
-      \RequirePackage{#2}%
+      \@ifpackageloaded{#2}{}{\RequirePackage{#2}\platpc@addtolist{#2}}%
     \fi
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
@@ -34,7 +34,9 @@
   \expandafter\def\csname platpc@end@#1+#2\endcsname{%
     \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
      \expandafter\ifx\csname platpc@disable@#2\endcsname\relax
-      \@ifpackageloaded{#2}{\RequirePackage{#3}}{}%
+      \@ifpackageloaded{#2}{%
+        \@ifpackageloaded{#3}{}{\RequirePackage{#3}\platpc@addtolist{#3}}%
+      }{}%
      \fi
     \fi
   }%
@@ -43,7 +45,9 @@
   \expandafter\def\csname platpc@end@#2+#1\endcsname{%
     \expandafter\ifx\csname platpc@disable@#2\endcsname\relax
      \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
-      \@ifpackageloaded{#1}{\RequirePackage{#3}}{}%
+      \@ifpackageloaded{#1}{%
+        \@ifpackageloaded{#3}{}{\RequirePackage{#3}\platpc@addtolist{#3}}%
+      }{}%
      \fi
     \fi
   }%
@@ -58,6 +62,7 @@
 %   - <patch> contains \RequirePackage{<orig>}
 \def\platpc@patch@before#1#2{%
   \expandafter\def\csname platpc@begin@#1\endcsname{%
+   \@ifpackageloaded{#2}{}{%
     \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
       % the code (*!) should be used only once,
       % remove it immediately when this macro is executed
@@ -76,6 +81,7 @@
         \filehook@atend}%
       % all done
     \fi
+   }%
   }%
   \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
 }
@@ -92,6 +98,18 @@
   }%
 }
 \@onlypreamble\plautopatchdisable
+
+% show list of loaded patches
+\AtEndDocument{%
+  \ifx\platpc@list\@empty\else
+    \typeout{%
+      Package `\platpc@pkgname' automatically loaded:\MessageBreak
+      \platpc@list
+    }%
+  \fi
+}
+\def\platpc@list{}% initialize
+\def\platpc@addtolist{\g@addto@macro\platpc@list}
 
 % register patches
 
