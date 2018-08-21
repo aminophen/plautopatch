@@ -11,7 +11,7 @@ by automatically loading specific patches
 when they are necessary.
 This helps not only to simplify source files, but also
 to make the appearance of working pLaTeX/upLaTeX sources
-similar to ordinally LaTeX.
+similar to that of ordinally LaTeX ones.
 
 The following patches are currently registered:
 
@@ -25,6 +25,11 @@ The following patches are currently registered:
 - atbegshi (oberdiek) -> pxatbegshi (platex-tools)
 - ftnright (latex-tools) -> pxftnright (platex-tools)
 - pdfpages -> pxpdfpages (maintained here!)
+
+## Requirements
+
+This package depends on "filehook" package,
+written by Martin Scharrer.
 
 ## Miscellaneous
 

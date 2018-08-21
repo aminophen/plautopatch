@@ -1,0 +1,89 @@
+%# -*- coding: utf-8 -*-
+\ifx\epTeXinputencoding\undefined\else % defined in e-pTeX (> TL2016)
+  \epTeXinputencoding utf8    % ensure utf-8 encoding for platex
+\fi
+
+\documentclass[a4paper]{jsarticle}
+\usepackage{doc}
+\usepackage{plautopatch}% load this here to make \GetFileInfo work
+\GetFileInfo{plautopatch.sty}
+\title{Package \textsf{plautopatch} \fileversion}
+\author{Hironobu Yamashita}
+\date{\filedate}
+\begin{document}
+
+\maketitle
+
+日本のp\LaTeX/up\LaTeX{}フォーマットや専用パッケージが、
+これらを知らない\LaTeX{}パッケージ（しばしば海外で作られた
+汎用のもの）と衝突することがあります。
+最悪の場合にはエラーが出たり、誤った出力が得られたり
+することがあります。
+
+この\textsf{plautopatch}の目的は、こうした非互換を意識せずに
+済むようにすることです。具体的には、p\LaTeX/up\LaTeX{}と
+衝突するパッケージが使われた場合に、その衝突を解消するパッチを
+提供するパッケージを必要に応じて自動的に読み込みます。
+こうすることで、ソースコードを簡潔にできるだけでなく、
+p\LaTeX/up\LaTeX{}で動作するソースと通常の\LaTeX{}ソースの
+見た目を近づけることができます。
+
+このパッケージはGitHubで開発しています。
+\begin{verbatim}
+    https://github.com/aminophen/plautopatch
+\end{verbatim}
+
+\section*{動作条件}
+
+このパッケージは
+\textsf{filehook}パッケージ（Martin Scharrer氏の作）に依存します。
+
+\section*{使い方}
+
+このパッケージを\LaTeX{}ソースの冒頭で読み込みます。
+\verb+\RequirePackage{plautopatch}+を\verb+\documentclass+や
+他のコマンドよりも前に読み込むことをお勧めします
+（クラスファイルなどが問題のあるパッケージを読み込む可能性もあるため）。
+
+\begin{verbatim}
+  \RequirePackage{plautopatch}
+  \documentclass{article}
+  ...
+\end{verbatim}
+
+\section*{現在対応しているパッケージの一覧}
+
+\def\ITEMoo#1 (#2) -> #3 (#4){%
+  \item \textsf{#1} (\textsf{#2})\\
+    $\rightarrow$ \textsf{#3} (\textsf{#4})}
+\def\ITEMooo#1 (#2) + #3 (#4) -> #5 (#6){%
+  \item \textsf{#1} (\textsf{#2}) + \textsf{#3} (\textsf{#4})\\
+    $\rightarrow$ \textsf{#5} (\textsf{#6})}
+\def\ITEM#1 -> #2 {%
+  \item \textsf{#1}\\
+    $\rightarrow$ \textsf{#2} }
+
+凡例：
+\begin{itemize}
+\item \texttt{<元のパッケージ>} (\texttt{<元が含まれるバンドル名>})\\
+  \texttt{<パッチのパッケージ>} (\texttt{<パッチが含まれるバンドル名>})
+\end{itemize}
+
+現在のバージョン (\filedate\space\fileversion) がサポートしているのは
+下記のパッケージです。
+\begin{itemize}
+\ITEMoo  tracefnt (latex) -> ptrace/uptrace (platex/uplatex)
+\ITEMoo  fltrace (latex) -> pfltrace (platex)
+\ITEMoo  array (latex-tools) -> plarray (platex-tools)
+\ITEMooo array (latex-tools) + plext (platex) -> plextarray (platex-tools)
+\ITEMooo delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
+\ITEMoo  everysel (ms) -> pxeverysel (platex-tools)
+\ITEMoo  everyshi (ms) -> pxeveryshi (platex-tools)
+\ITEMoo  atbegshi (oberdiek) -> pxatbegshi (platex-tools)
+\ITEMoo  ftnright (latex-tools) -> pxftnright (platex-tools)
+\ITEM    pdfpages -> pxpdfpages (maintained here!)
+\end{itemize}
+もちろん、このリストは追加・削除・置き換えていく予定です。
+互換性の問題や追加したいパッケージがある場合はご一報ください。
+
+\end{document}

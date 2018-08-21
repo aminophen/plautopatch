@@ -1,0 +1,91 @@
+%# -*- coding: utf-8 -*-
+\ifx\epTeXinputencoding\undefined\else % defined in e-pTeX (> TL2016)
+  \epTeXinputencoding utf8    % ensure utf-8 encoding for platex
+\fi
+
+\documentclass[a4paper]{jsarticle}
+\usepackage{doc}
+\usepackage{plautopatch}% load this here to make \GetFileInfo work
+\GetFileInfo{plautopatch.sty}
+\title{Package \textsf{plautopatch} \fileversion}
+\author{Hironobu Yamashita}
+\date{\filedate}
+\begin{document}
+
+\maketitle
+
+Japanese p\LaTeX/up\LaTeX\ formats and packages often conflict
+with other \LaTeX\ packages which are aware of p\LaTeX/up\LaTeX.
+In the worst case, such packages throw an fatal error or
+end up with a wrong output.
+
+The goal of this package \textsf{plautopatch} is that
+there is no need to worry about such incompatibilities,
+by automatically loading specific patches
+when they are necessary.
+This helps not only to simplify source files, but also
+to make the appearance of working p\LaTeX/up\LaTeX\ sources
+similar to that of ordinally \LaTeX\ ones.
+
+The package is maintained on GitHub:
+\begin{verbatim}
+    https://github.com/aminophen/plautopatch
+\end{verbatim}
+
+\section*{Requirements}
+
+This package depends on \textsf{filehook} package,
+written by Martin Scharrer.
+
+\section*{Usage}
+
+Load this package at the very beginning of the \LaTeX\ source.
+It is strongly recommended to use
+\verb+\RequirePackage{plautopatch}+
+before \verb+\documentclass+ or any other commands,
+as such other classes and packages may load
+some problematic packages internally.
+
+\begin{verbatim}
+  \RequirePackage{plautopatch}
+  \documentclass{article}
+  ...
+\end{verbatim}
+
+\section*{List of currently available patches}
+
+\def\ITEMoo#1 (#2) -> #3 (#4){%
+  \item \textsf{#1} (\textsf{#2})\\
+    $\rightarrow$ \textsf{#3} (\textsf{#4})}
+\def\ITEMooo#1 (#2) + #3 (#4) -> #5 (#6){%
+  \item \textsf{#1} (\textsf{#2}) + \textsf{#3} (\textsf{#4})\\
+    $\rightarrow$ \textsf{#5} (\textsf{#6})}
+\def\ITEM#1 -> #2 {%
+  \item \textsf{#1}\\
+    $\rightarrow$ \textsf{#2} }
+
+The legend:
+\begin{itemize}
+\item \texttt{<original package>} (\texttt{<bundle name of original package>})\\
+  \texttt{<patch package>} (\texttt{<bundle name of patch package>})
+\end{itemize}
+
+Current version (\filedate\space\fileversion) supports the followings:
+\begin{itemize}
+\ITEMoo  tracefnt (latex) -> ptrace/uptrace (platex/uplatex)
+\ITEMoo  fltrace (latex) -> pfltrace (platex)
+\ITEMoo  array (latex-tools) -> plarray (platex-tools)
+\ITEMooo array (latex-tools) + plext (platex) -> plextarray (platex-tools)
+\ITEMooo delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
+\ITEMoo  everysel (ms) -> pxeverysel (platex-tools)
+\ITEMoo  everyshi (ms) -> pxeveryshi (platex-tools)
+\ITEMoo  atbegshi (oberdiek) -> pxatbegshi (platex-tools)
+\ITEMoo  ftnright (latex-tools) -> pxftnright (platex-tools)
+\ITEM    pdfpages -> pxpdfpages (maintained here!)
+\end{itemize}
+Note that, of course, the list may be adjusted
+(addition, deletion or replacement)
+in the future to get the expected result.
+Feel free to report some compatibility issue or request changes!
+
+\end{document}
