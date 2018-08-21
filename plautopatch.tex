@@ -46,11 +46,30 @@ before \verb+\documentclass+ or any other commands,
 as such other classes and packages may load
 some problematic packages internally.
 
+Here is an example:
 \begin{verbatim}
-  \RequirePackage{plautopatch}
-  \documentclass{article}
+  %\RequirePackage{plautopatch}
+  \documentclass{tarticle}% vertical writing (requires plext)
+  \usepackage{array}% incompatible with plext
+  \begin{document}
   ...
+  \end{document}
 \end{verbatim}
+In the above example, the class \textsf{tarticle} internally
+requires the package \textsf{plext}.
+However, \textsf{array} explicitly required by \verb+\usepackage+
+conflicts with \textsf{plext}.
+By using \verb+\RequirePackage{plautopatch}+,
+\textsf{plextarray} is automatically loaded and the problem goes.
+The list of automatically-loaded packages is shown at
+\verb+\end{document}+:
+\begin{verbatim}
+***** List of packages loaded by `plautopatch': *****
+ plextarray.
+*****************************************************
+\end{verbatim}
+When multiple packages are loaded, they are all printed
+as a list separated by commas and spaces.
 
 \section*{List of currently available patches}
 
@@ -87,5 +106,21 @@ Note that, of course, the list may be adjusted
 (addition, deletion or replacement)
 in the future to get the expected result.
 Feel free to report some compatibility issue or request changes!
+
+\section*{Disabling a specific patch}
+
+By default, \texttt{<patch package>} is automatically loaded when
+\texttt{<original package>} is detected, following the whole list.
+However, there is still a possibility of another regression issue.
+In that case, you can disable the detection of
+\texttt{<original package>} by using the command:
+\begin{verbatim}
+    \plautopatchdisable{<original package>}
+\end{verbatim}
+If you want to disable multiple packages, you can give
+a comma-separated list of them:
+\begin{verbatim}
+    \plautopatchdisable{<original package 1>,<original package 2>}
+\end{verbatim}
 
 \end{document}

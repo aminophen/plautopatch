@@ -41,14 +41,34 @@ p\LaTeX/up\LaTeX{}で動作するソースと通常の\LaTeX{}ソースの
 \section*{使い方}
 
 このパッケージを\LaTeX{}ソースの冒頭で読み込みます。
-\verb+\RequirePackage{plautopatch}+を\verb+\documentclass+や
-他のコマンドよりも前に読み込むことをお勧めします
+このために、\verb+\RequirePackage{plautopatch}+を
+\verb+\documentclass+や他のコマンドよりも\emph{前}に
+読み込むことをお勧めします
 （クラスファイルなどが問題のあるパッケージを読み込む可能性もあるため）。
 
+例を示します。
 \begin{verbatim}
-  \RequirePackage{plautopatch}
-  \documentclass{article}
+  %\RequirePackage{plautopatch}
+  \documentclass{tarticle}% 縦組クラス（plext使用）
+  \usepackage{array}% plextと非互換
+  \begin{document}
   ...
+  \end{document}
+\end{verbatim}
+上記の例では、
+\textsf{tarticle}クラスが内部で読み込む\textsf{plext}パッケージと、
+ソース中で\verb+\usepackage+している\textsf{array}パッケージが
+衝突してエラーになる場合があります。しかし、冒頭で
+\verb+\RequirePackage{plautopatch}+とだけ書いておけば、
+\textsf{array}パッケージの時点で\textsf{plextarray}パッケージが
+追加で読み込まれるため、問題が解消します。
+このように自動追加されたパッケージは、\verb+\end{document}+の
+時点で次のように一覧として表示されます（複数の場合は
+コンマと空白で区切ったリストになります）。
+\begin{verbatim}
+***** List of packages loaded by `plautopatch': *****
+ plextarray.
+*****************************************************
 \end{verbatim}
 
 \section*{現在対応しているパッケージの一覧}
@@ -83,7 +103,22 @@ p\LaTeX/up\LaTeX{}で動作するソースと通常の\LaTeX{}ソースの
 \ITEMoo  ftnright (latex-tools) -> pxftnright (platex-tools)
 \ITEM    pdfpages -> pxpdfpages (maintained here!)
 \end{itemize}
-もちろん、このリストは追加・削除・置き換えていく予定です。
+もちろん、このリストは随時、追加・削除・置き換えていく予定です。
 互換性の問題や追加したいパッケージがある場合はご一報ください。
+
+\section*{特定のパッケージを除外したい場合}
+
+デフォルトでは、上記のリストに登録されている\texttt{<元のパッケージ>}が
+使われたことを検出すると、全て自動的にパッチを読み込みます。
+しかし、時にはこれが逆効果となり、問題が起きる可能性は否定できません。
+そのような場合は
+\begin{verbatim}
+    \plautopatchdisable{<元のパッケージ>}
+\end{verbatim}
+と書くことで、そのパッケージを検出対象から除外します。複数ある場合は
+\begin{verbatim}
+    \plautopatchdisable{<元のパッケージ1>,<元のパッケージ2>}
+\end{verbatim}
+のようにコンマで区切っていくつでも除外できます。
 
 \end{document}
