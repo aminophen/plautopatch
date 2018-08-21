@@ -1,9 +1,17 @@
 # plautopatch
 
-This package allows users to load (u)pLaTeX-specific extensions and
-patches automatically.
+Japanese pLaTeX/upLaTeX formats and packages often conflict
+with other LaTeX packages which are aware of pLaTeX/upLaTeX.
+In the worst case, such packages throw an fatal error or
+end up with a wrong output.
 
-## Current patches
+The goal of this package "plautopatch" is that
+there is no need to worry about such incompatibilities,
+by automatically loading specific patches
+when they are necessary.
+This helps not only to simplify source files, but also
+to make the appearance of working pLaTeX/upLaTeX sources
+similar to ordinally LaTeX.
 
 The following patches are currently registered:
 
@@ -16,6 +24,17 @@ The following patches are currently registered:
 - everyshi (ms) -> pxeveryshi (platex-tools)
 - atbegshi (oberdiek) -> pxatbegshi (platex-tools)
 - ftnright (latex-tools) -> pxftnright (platex-tools)
+- pdfpages -> pxpdfpages (maintained here!)
+
+## Miscellaneous
+
+This bundle may distribute some tiny patches
+together with the main package. Short information:
+
+- pxpdfpages.sty:
+    Patch for pdfpages.sty (by An­dreas Matthias) to support
+    Japanese-style crop marks (called 'tombow' in Japanese).
+    Can be used on pLaTeX/upLaTeX.
 
 ## Installation
 
