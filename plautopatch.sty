@@ -31,15 +31,21 @@
 \def\platpc@addtolist#1{\xdef\platpc@list{\platpc@list, #1}}
 \def\platpc@list{}% initialize
 
+%% \platpc@ifnotinlist{<package>}{<code>}
+% = execute <code> if <package> is not in list.
+\def\platpc@ifnotinlist#1{%
+  \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
+    \expandafter\@firstofone
+  \fi
+}
+
 % high-level helpers
 
 %% \platpc@patch@after{<orig>}{<patch>}
 % = Load <patch> after <orig>.
 \def\platpc@patch@after#1#2{%
   \expandafter\def\csname platpc@end@#1\endcsname{%
-    \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
-      \platpc@ifreq@add{#2}%
-    \fi
+    \platpc@ifnotinlist{#1}{\platpc@ifreq@add{#2}}%
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
 }
@@ -50,20 +56,16 @@
 \def\platpc@patch@after@both#1#2#3{%
   % for order #2 => #1
   \expandafter\def\csname platpc@end@#1+#2\endcsname{%
-    \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
-     \expandafter\ifx\csname platpc@disable@#2\endcsname\relax
+    \platpc@ifnotinlist{#1}{\platpc@ifnotinlist{#2}{%
       \@ifpackageloaded{#2}{\platpc@ifreq@add{#3}}{}%
-     \fi
-    \fi
+    }}%
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1+#2\endcsname}%
   % for order #1 => #2
   \expandafter\def\csname platpc@end@#2+#1\endcsname{%
-    \expandafter\ifx\csname platpc@disable@#2\endcsname\relax
-     \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
+    \platpc@ifnotinlist{#2}{\platpc@ifnotinlist{#1}{%
       \@ifpackageloaded{#1}{\platpc@ifreq@add{#3}}{}%
-     \fi
-    \fi
+    }}%
   }%
   \AtEndOfPackageFile{#2}{\csname platpc@end@#2+#1\endcsname}%
 }
@@ -78,7 +80,7 @@
   \expandafter\def\csname platpc@begin@#1\endcsname{%
     % if <patch> is already loaded, nothing to do
     \@ifpackageloaded{#2}{}{% else
-      \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
+      \platpc@ifnotinlist{#1}{%
         % the code (*!) should be used only once,
         % remove it immediately when this macro is executed
         \expandafter\let\csname platpc@begin@#1\endcsname\relax
@@ -95,7 +97,7 @@
           \filehook@@atbegin
           \filehook@atend}%
         % all done
-      \fi
+      }%
     }%
   }%
   \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
