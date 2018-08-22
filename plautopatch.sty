@@ -17,11 +17,13 @@
 
 % low-level helpers
 
-%% \platpc@req@add{<package>}
+%% \platpc@ifreq@add{<package>}
 % = if not loaded yet, \RequirePackage{<package>}
 %   and add to list.
-\def\platpc@req@add#1{%
-  \@ifpackageloaded{#1}{}{\RequirePackage{#1}\platpc@addtolist{#1}}%
+\def\platpc@ifreq@add#1{%
+  \@ifpackageloaded{#1}{}{%
+    \RequirePackage{#1}\platpc@addtolist{#1}%
+  }%
 }
 
 %% \platpc@addtolist{<package>}
@@ -36,7 +38,7 @@
 \def\platpc@patch@after#1#2{%
   \expandafter\def\csname platpc@end@#1\endcsname{%
     \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
-      \platpc@req@add{#2}%
+      \platpc@ifreq@add{#2}%
     \fi
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
@@ -50,7 +52,7 @@
   \expandafter\def\csname platpc@end@#1+#2\endcsname{%
     \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
      \expandafter\ifx\csname platpc@disable@#2\endcsname\relax
-      \@ifpackageloaded{#2}{\platpc@req@add{#3}}{}%
+      \@ifpackageloaded{#2}{\platpc@ifreq@add{#3}}{}%
      \fi
     \fi
   }%
@@ -59,7 +61,7 @@
   \expandafter\def\csname platpc@end@#2+#1\endcsname{%
     \expandafter\ifx\csname platpc@disable@#2\endcsname\relax
      \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
-      \@ifpackageloaded{#1}{\platpc@req@add{#3}}{}%
+      \@ifpackageloaded{#1}{\platpc@ifreq@add{#3}}{}%
      \fi
     \fi
   }%
