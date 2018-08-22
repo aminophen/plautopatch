@@ -31,9 +31,9 @@
 \def\platpc@addtolist#1{\xdef\platpc@list{\platpc@list, #1}}
 \def\platpc@list{}% initialize
 
-%% \platpc@ifnotinlist{<package>}{<code>}
-% = execute <code> if <package> is not in list.
-\def\platpc@ifnotinlist#1{%
+%% \platpc@ifnotdisabled{<package>}{<code>}
+% = execute <code> if <package> is not disabled.
+\def\platpc@ifnotdisabled#1{%
   \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
     \expandafter\@firstofone
   \fi
@@ -45,7 +45,7 @@
 % = Load <patch> after <orig>.
 \def\platpc@patch@after#1#2{%
   \expandafter\def\csname platpc@end@#1\endcsname{%
-    \platpc@ifnotinlist{#1}{\platpc@ifreq@add{#2}}%
+    \platpc@ifnotdisabled{#1}{\platpc@ifreq@add{#2}}%
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
 }
@@ -56,14 +56,14 @@
 \def\platpc@patch@after@both#1#2#3{%
   % for order #2 => #1
   \expandafter\def\csname platpc@end@#1+#2\endcsname{%
-    \platpc@ifnotinlist{#1}{\platpc@ifnotinlist{#2}{%
+    \platpc@ifnotdisabled{#1}{\platpc@ifnotdisabled{#2}{%
       \@ifpackageloaded{#2}{\platpc@ifreq@add{#3}}{}%
     }}%
   }%
   \AtEndOfPackageFile{#1}{\csname platpc@end@#1+#2\endcsname}%
   % for order #1 => #2
   \expandafter\def\csname platpc@end@#2+#1\endcsname{%
-    \platpc@ifnotinlist{#2}{\platpc@ifnotinlist{#1}{%
+    \platpc@ifnotdisabled{#2}{\platpc@ifnotdisabled{#1}{%
       \@ifpackageloaded{#1}{\platpc@ifreq@add{#3}}{}%
     }}%
   }%
@@ -78,9 +78,9 @@
 %   - <patch> contains \RequirePackage{<orig>}
 \def\platpc@patch@before#1#2{%
   \expandafter\def\csname platpc@begin@#1\endcsname{%
-    % if <patch> is already loaded, nothing to do
-    \@ifpackageloaded{#2}{}{% else
-      \platpc@ifnotinlist{#1}{%
+    \platpc@ifnotdisabled{#1}{%
+      % if <patch> is already loaded, nothing to do
+      \@ifpackageloaded{#2}{}{% else
         % the code (*!) should be used only once,
         % remove it immediately when this macro is executed
         \expandafter\let\csname platpc@begin@#1\endcsname\relax
