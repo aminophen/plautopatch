@@ -40,13 +40,11 @@
   \fi
 }
 
-%% \platpc@ifloadederr{<package>}
-% = throw an error if <package> is already loaded.
-\def\platpc@ifloadederr#1{%
-  \@ifpackageloaded{#1}{%
-    \platpc@err{Package `#1' already loaded!\MessageBreak
-      Use \string\RequirePackage{\platpc@pkgname} earlier}\@ehc
-  }%
+%% \platpc@err@toolate{<package>}
+% = content of the "too-late" error.
+\def\platpc@err@toolate#1{%
+  \platpc@err{Package `#1' already loaded!\MessageBreak
+    Use \string\RequirePackage{\platpc@pkgname} earlier}\@ehc
 }
 
 % high-level helpers
@@ -124,9 +122,11 @@
     }%
   }%
   % if <orig> is already loaded at this point, too late!
-  \platpc@ifloadederr{#1}%
-  % do it
-  \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
+  \@ifpackageloaded{#1}{%
+    \platpc@err@toolate{#1}%
+  }{% else
+    \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
+  }%
 }
 \@onlypreamble\platpc@patch@before
 
