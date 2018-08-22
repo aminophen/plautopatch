@@ -10,6 +10,7 @@
 \ProvidesPackage{plautopatch}
     [2018/08/21 v0.2 Automated patches for pLaTeX/upLaTeX]
 \def\platpc@pkgname{plautopatch}
+\def\platpc@err{\PackageError\platpc@pkgname}
 \def\platpc@warn{\PackageWarningNoLine\platpc@pkgname}
 \def\platpc@info{\PackageInfo\platpc@pkgname}
 
@@ -39,6 +40,15 @@
   \fi
 }
 
+%% \platpc@ifloadederr{<package>}
+% = throw an error if <package> is already loaded.
+\def\platpc@ifloadederr#1{%
+  \@ifpackageloaded{#1}{%
+    \platpc@err{Package `#1' already loaded!\MessageBreak
+      Use \string\RequirePackage{\platpc@pkgname} earlier}\@ehc
+  }%
+}
+
 % high-level helpers
 
 %% \platpc@patch@after{<orig>}{<patch>}
@@ -47,27 +57,40 @@
   \expandafter\def\csname platpc@end@#1\endcsname{%
     \platpc@ifnotdisabled{#1}{\platpc@ifreq@add{#2}}%
   }%
-  \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
+  \@ifpackageloaded{#1}{%
+    \csname platpc@end@#1\endcsname
+  }{%
+    \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
+  }%
 }
 \@onlypreamble\platpc@patch@after
 
 %% \platpc@patch@after@both{<orig 1>}{<orig 2>}{<patch>}
 % = Load <patch> after both <orig 1> & <orig 2>.
 \def\platpc@patch@after@both#1#2#3{%
-  % for order #2 => #1
   \expandafter\def\csname platpc@end@#1+#2\endcsname{%
     \platpc@ifnotdisabled{#1}{\platpc@ifnotdisabled{#2}{%
-      \@ifpackageloaded{#2}{\platpc@ifreq@add{#3}}{}%
+      \platpc@ifreq@add{#3}%
     }}%
   }%
-  \AtEndOfPackageFile{#1}{\csname platpc@end@#1+#2\endcsname}%
-  % for order #1 => #2
-  \expandafter\def\csname platpc@end@#2+#1\endcsname{%
-    \platpc@ifnotdisabled{#2}{\platpc@ifnotdisabled{#1}{%
-      \@ifpackageloaded{#1}{\platpc@ifreq@add{#3}}{}%
-    }}%
+  \@ifpackageloaded{#1}{%
+    \@ifpackageloaded{#2}{%
+      \csname platpc@end@#1+#2\endcsname
+    }{%
+      \AtEndOfPackageFile{#2}{\csname platpc@end@#1+#2\endcsname}%
+    }%
+  }{%
+    \@ifpackageloaded{#2}{%
+      \AtEndOfPackageFile{#1}{\csname platpc@end@#1+#2\endcsname}%
+    }{%
+      \AtEndOfPackageFile{#1}{%
+        \@ifpackageloaded{#2}{\csname platpc@end@#1+#2\endcsname}{}%
+      }%
+      \AtEndOfPackageFile{#2}{%
+        \@ifpackageloaded{#1}{\csname platpc@end@#1+#2\endcsname}{}%
+      }%
+    }%
   }%
-  \AtEndOfPackageFile{#2}{\csname platpc@end@#2+#1\endcsname}%
 }
 \@onlypreamble\platpc@patch@after@both
 
@@ -100,6 +123,9 @@
       }%
     }%
   }%
+  % if <orig> is already loaded at this point, too late!
+  \platpc@ifloadederr{#1}%
+  % do it
   \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
 }
 \@onlypreamble\platpc@patch@before
