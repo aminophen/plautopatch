@@ -2,16 +2,16 @@
 
 Japanese pLaTeX/upLaTeX formats and packages often conflict
 with other LaTeX packages which are unaware of pLaTeX/upLaTeX.
-In the worst case, such packages throw an fatal error or
+In the worst case, such packages throw a fatal error or
 end up with a wrong output.
 
 The goal of this package "plautopatch" is that
-there is no need to worry about such incompatibilities,
-by automatically loading specific patches
-when they are necessary.
+there should be no need to worry about such incompatibilities,
+because specific patches are loaded automatically
+whenever necessary.
 This helps not only to simplify source files, but also
 to make the appearance of working pLaTeX/upLaTeX sources
-similar to that of ordinally LaTeX ones.
+similar to those of ordinally LaTeX ones.
 
 The following patches are currently registered:
 
