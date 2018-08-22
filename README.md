@@ -1,7 +1,7 @@
 # plautopatch
 
 Japanese pLaTeX/upLaTeX formats and packages often conflict
-with other LaTeX packages which are aware of pLaTeX/upLaTeX.
+with other LaTeX packages which are unaware of pLaTeX/upLaTeX.
 In the worst case, such packages throw an fatal error or
 end up with a wrong output.
 

@@ -15,7 +15,7 @@
 \maketitle
 
 Japanese p\LaTeX/up\LaTeX\ formats and packages often conflict
-with other \LaTeX\ packages which are aware of p\LaTeX/up\LaTeX.
+with other \LaTeX\ packages which are unaware of p\LaTeX/up\LaTeX.
 In the worst case, such packages throw an fatal error or
 end up with a wrong output.
 
@@ -122,5 +122,12 @@ a comma-separated list of them:
 \begin{verbatim}
     \plautopatchdisable{<original package 1>,<original package 2>}
 \end{verbatim}
+
+\section*{Change History}
+
+\begin{itemize}
+  \item 2018/08/21 v0.2  First CTAN release
+  \item 2018/08/22 v0.3  Improve detection of problematic packages
+\end{itemize}
 
 \end{document}
