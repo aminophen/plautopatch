@@ -11,7 +11,7 @@ because specific patches are loaded automatically
 whenever necessary.
 This helps not only to simplify source files, but also
 to make the appearance of working pLaTeX/upLaTeX sources
-similar to those of ordinally LaTeX ones.
+similar to those of ordinary LaTeX ones.
 
 The following patches are currently registered:
 
