@@ -6,9 +6,18 @@
 % https://github.com/aminophen/plautopatch
 %
 
-\NeedsTeXFormat{pLaTeX2e}
+\NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
     [2018/09/19 v0.4 Automated patches for pLaTeX/upLaTeX]
+
+\ifx\pfmtname\@undefined
+  \PackageWarningNoLine{plautopatch}{%
+    This package is meant for pLaTeX/upLaTeX,\MessageBreak
+    you will not need it.}
+  \expandafter\endinput
+\fi
+
+\NeedsTeXFormat{pLaTeX2e}% just in case ...
 \def\platpc@pkgname{plautopatch}
 \def\platpc@err{\PackageError\platpc@pkgname}
 \def\platpc@warn{\PackageWarningNoLine\platpc@pkgname}
