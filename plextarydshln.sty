@@ -19,6 +19,17 @@
 \RequirePackage{plext}
 \RequirePackage{arydshln}
 
+%% handle package compatibility issues beforehand
+%  Note: The "arydshln" manual requests users to load
+%        the following packages *before* arydshln,
+%        to ensure compatibility:
+%          array, longtable, colortab, colortbl.
+%        So, hoping that users are clever enough to load
+%        them before plextarydshln, load known patches
+%        at this point when they are detected.
+%\@ifpackageloaded{array}{\RequirePackage{plextarray}}{}
+%\@ifpackageloaded{colortbl}{\RequirePackage{plextcolortbl}}{}
+
 %% patching internal code for arydshln.sty and plext.sty
 %
 \let\adl@p@array\p@array
