@@ -20,6 +20,7 @@ The following patches are currently registered:
 - array (latex-tools) -> plarray (platex-tools)
 - array (latex-tools) + plext (platex) -> plextarray (platex-tools)
 - delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
+- colortbl + plext (platex) -> plextcolortbl (maintained here!)
 - everysel (ms) -> pxeverysel (platex-tools)
 - everyshi (ms) -> pxeveryshi (platex-tools)
 - atbegshi (oberdiek) -> pxatbegshi (platex-tools)
@@ -36,6 +37,10 @@ written by Martin Scharrer.
 This bundle may distribute some tiny patches
 together with the main package. Short information:
 
+- plextcolortbl.sty:
+    Patch for colortbl.sty (by David Carlisle­) to improve
+    compatibility with plext.sty in pLaTeX.
+    Can be used on pLaTeX/upLaTeX.
 - pxpdfpages.sty:
     Patch for pdfpages.sty (by An­dreas Matthias) to support
     Japanese-style crop marks (called 'tombow' in Japanese).
