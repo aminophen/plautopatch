@@ -39,25 +39,25 @@ make \textsf{colortbl} compatible with \textsf{plext}.
   %\usepackage{colortbl}
   \usepackage{plextcolortbl}
   \begin{document}
-  \begin{tabular*}{3cm}{%
+  \begin{tabular*}<t>{3cm}{%
   @{\extracolsep{\fill}}
   >{\columncolor{green}[0pt][20mm]}l
   >{\columncolor{yellow}[5mm][0pt]}l
   @{}}
-  one&two\\
-  three&four
+  one & いち \\
+  two & に
   \end{tabular*}
   \end{document}
 \end{verbatim}
 \end{minipage}
 \begin{minipage}{0.4\linewidth}
-  \begin{tabular*}{3cm}<t>{%
+  \begin{tabular*}<t>{3cm}{%
   @{\extracolsep{\fill}}
   >{\columncolor{green}[0pt][20mm]}l
   >{\columncolor{yellow}[5mm][0pt]}l
   @{}}
-  one&two\\
-  three&four
+  one & いち \\
+  two & に
   \end{tabular*}
 \end{minipage}
 
