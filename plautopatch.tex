@@ -82,6 +82,9 @@ as a list separated by commas and spaces.
 \def\ITEMxoTo#1      + #2 (#3) -> #4 (#5){%
   \item \textsf{#1}               + \textsf{#2} (\textsf{#3})\\
     $\rightarrow$ \textsf{#4} (\textsf{#5})}
+\def\ITEMoTx#1 (#2) -> #3 {%
+  \item \textsf{#1} (\textsf{#2})\\
+    $\rightarrow$ \textsf{#3} }
 \def\ITEMxTx#1      -> #2     {%
   \item \textsf{#1}\\
     $\rightarrow$ \textsf{#2} }
@@ -105,6 +108,8 @@ Current version (\filedate\space\fileversion) supports the followings:
 \ITEMoTo  atbegshi (oberdiek) -> pxatbegshi (platex-tools)
 \ITEMoTo  ftnright (latex-tools) -> pxftnright (platex-tools)
 \ITEMxTx  pdfpages -> pxpdfpages (maintained here!)
+\ITEMoTx  pgfrcs (pgf) -> pxpgfrcs (maintained here!)
+\ITEMoTx  pgfcore (pgf) -> pxpgfmark (by Takayuki YATO)
 \end{itemize}
 Note that, of course, the list may be adjusted
 (addition, deletion or replacement)

@@ -26,6 +26,8 @@ The following patches are currently registered:
 - atbegshi (oberdiek) -> pxatbegshi (platex-tools)
 - ftnright (latex-tools) -> pxftnright (platex-tools)
 - pdfpages -> pxpdfpages (maintained here!)
+- pgfrcs (pgf) -> pxpgfrcs (maintained here!)
+- pgfcore (pgf) -> pxpgfmark (by Takayuki YATO)
 
 ## Requirements
 
@@ -44,6 +46,10 @@ together with the main package. Short information:
 - pxpdfpages.sty:
     Patch for pdfpages.sty (by An­dreas Matthias) to support
     Japanese-style crop marks (called 'tombow' in Japanese).
+    Can be used on pLaTeX/upLaTeX.
+- pxpgfrcs.sty:
+    Patch for pgfrcs.sty (part of PGF) to support
+    Japanese classes for vertical writing.
     Can be used on pLaTeX/upLaTeX.
 
 ## Installation
