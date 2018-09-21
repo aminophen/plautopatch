@@ -1,0 +1,148 @@
+% https://twitter.com/doraTeX/status/725890165521027073
+% https://www.overleaf.com/read/wxwnbzpwzcxb#/15654561/
+\documentclass[dvipdfmx,twocolumn]{tarticle}
+\setlength\columnseprule{.4pt}
+\pagestyle{empty}
+\usepackage{tikz}
+\usepackage{pxpgfrcs}% pxeveryshi is also loaded
+
+\usetikzlibrary{shadings,shadows,fadings,calendar}
+
+\begin{document}
+
+\section{Test of \texttt{fadings} library}%%% from http://www.texample.net/tikz/examples/coffee-cup/
+
+\tikzfading[name=fade out,
+ inner color=transparent!0, outer color=transparent!100]
+
+\mbox{\yoko
+\begin{tikzpicture}
+ \foreach \c [count=\i from 0] in {white,red!75!black,blue!25,orange}{
+
+   \tikzset{xshift={mod(\i,2)*3cm}, yshift=-floor(\i/2)*3cm}
+   \colorlet{cup}{\c}
+
+   % Saucer
+   \begin{scope}[shift={(0,-1-1/16)}]
+     \fill [black!87.5, path fading=fade out]
+       (0,-2/8) ellipse [x radius=6/4, y radius=3/4];
+     \fill [cup, postaction={left color=black, right color=white, opacity=1/3}]
+       (0,0) ++(180:5/4) arc (180:360:5/4 and 5/8+1/16);
+     \fill [cup, postaction={left color=black!50, right color=white, opacity=1/3}]
+       (0,0) ellipse [x radius=5/4, y radius=5/8];
+     \fill [cup, postaction={left color=white, right color=black, opacity=1/3}]
+       (0,1/16) ellipse [x radius=5/4/2, y radius=5/8/2];
+     \fill [cup, postaction={left color=black, right color=white, opacity=1/3}]
+       (0,0) ellipse [x radius=5/4/2-1/16, y radius=5/8/2-1/16];
+   \end{scope}
+
+   % Handle
+   \begin{scope}[shift=(10:7/8), rotate=-30, yslant=1/2, xslant=-1/8]
+     \fill [cup, postaction={top color=black, bottom color=white, opacity=1/3}]
+       (0,0) arc (130:-100:3/8 and 1/2) -- ++(0,1/4) arc (-100:130:1/8 and 1/4)
+       -- cycle;
+     \fill [cup, postaction={top color=white, bottom color=black, opacity=1/3}]
+       (0,0) arc (130:-100:3/8 and 1/2) -- ++(0,1/32) arc (-100:130:1/4 and 1/3)
+       -- cycle;
+   \end{scope}
+
+   % Cup
+   \fill [cup!25!black, path fading=fade out]
+     (0,-1-1/16) ellipse [x radius=3/4, y radius=1/3];
+   \fill [cup, postaction={left color=black, right color=white, opacity=1/3/2},
+     postaction={bottom color=black, top color=white, opacity=1/3/2}]
+     (-1,0) arc (180:360:1 and 5/4);
+   \fill [cup, postaction={left color=white, right color=black, opacity=1/3}]
+     (0,0) ellipse [x radius=1, y radius=1/2];
+   \fill [cup, postaction={left color=black, right color=white, opacity=1/3/2},
+     postaction={bottom color=black, top color=white, opacity=1/3/2}]
+     (0,0) ellipse [x radius=1-1/16, y radius=1/2-1/16];
+
+   % Coffee
+   \begin{scope}
+     \clip ellipse [x radius=1-1/16, y radius=1/2-1/16];
+     \fill [brown!25!black]
+       (0,-1/4) ellipse [x radius=3/4, y radius=3/8];
+     \fill [brown!50!black, path fading=fade out]
+       (0,-1/4) ellipse [x radius=3/4, y radius=3/8];
+   \end{scope}
+ }
+\end{tikzpicture}}
+
+
+\section{Test of \texttt{shadows} library}%%% from http://www.texample.net/tikz/examples/overlapping-arrows/
+
+\definecolor{darkblue}{rgb}{0.2,0.2,0.6}
+\definecolor{darkred}{rgb}{0.6,0.1,0.1}
+\definecolor{darkgreen}{rgb}{0.2,0.6,0.2}
+
+\def\arrow{
+ (10.75:1.1) -- (6.5:1) arc (6.25:120:1) [rounded corners=0.5] --
+ (120:0.9) [rounded corners=1] -- (130:1.1) [rounded corners=0.5] --
+ (120:1.3) [sharp corners] -- (120:1.2) arc (120:5.25:1.2)
+ [rounded corners=1] -- (10.75:1.1) -- (6.5:1) -- cycle
+}
+
+\tikzset{
+ ashadow/.style={opacity=.25, shadow xshift=0.07, shadow yshift=-0.07},
+}
+
+\def\arrows[#1]{        
+ \begin{scope}[scale=#1]
+   \draw[color=darkred, %
+   drop shadow={ashadow, color=red!60!black}] \arrow;
+
+   \draw[color=darkgreen, bottom color=green!90!black, top color=green!60, %
+   drop shadow={ashadow, color=green!60!black}] [rotate=120] \arrow;
+
+   \draw[color=darkblue, right color=blue, left color=blue!60, %
+   drop shadow={ashadow, color=blue!60!black}] [rotate=240] \arrow;
+
+   % to hide the green shadow
+   \draw[color=darkred, left color=red, right color=red!60] \arrow;
+ \end{scope}
+}
+
+\mbox{\yoko
+\begin{tikzpicture}
+ \arrows[2.5];
+\end{tikzpicture}}
+
+\section{Test of \texttt{shadings} library}%%% from http://www.texample.net/tikz/examples/calendar-circles/
+
+\colorlet{winter}{blue}
+\colorlet{spring}{green!60!black}
+\colorlet{summer}{orange}
+\colorlet{fall}{red}
+\newcount\mycount
+
+\mbox{\yoko
+\begin{tikzpicture}[transform shape,
+ every day/.style={anchor=mid,font=\tiny}]
+ \node[circle,shading=radial,outer color=blue!30,inner color=white,
+   minimum width=15cm] {\textcolor{blue!80!black}{\Huge\the\year}};
+ \foreach \month/\monthcolor in
+   {1/winter,2/winter,3/spring,4/spring,5/spring,6/summer,
+   7/summer,8/summer,9/fall,10/fall,11/fall,12/winter} {
+     % Computer angle:
+     \mycount=\month
+     \advance\mycount by -1
+     \multiply\mycount by 30
+     \advance\mycount by -90
+     \shadedraw[shading=radial,outer color=\monthcolor!30,middle color=white,
+       inner color=white,draw=none] (\the\mycount:5.4cm) circle(1.4cm);
+     % The actual calendar
+     \calendar at (\the\mycount:5.4cm) [
+         dates=\the\year-\month-01 to \the\year-\month-last]
+     if (day of month=1) {\large\color{\monthcolor!50!black}\tikzmonthcode}
+     if (Sunday) [red]
+     if (all) {
+     % Again, compute angle
+     \mycount=1
+     \advance\mycount by -\pgfcalendarcurrentday
+     \multiply\mycount by 11
+     \advance\mycount by 90
+     \pgftransformshift{\pgfpointpolar{\mycount}{1.2cm}}};}
+\end{tikzpicture}}
+
+\end{document}

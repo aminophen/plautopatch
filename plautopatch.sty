@@ -184,4 +184,10 @@
 \platpc@patch@before{ftnright}{pxftnright}% platex-tools
 \platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
 
+% for TikZ/PGF
+\platpc@patch@after{pgfrcs}{pxpgfrcs}% (maintained here!)
+% --- pxpgfmark is useful on e-(u)pTeX + dvipdfmx
+% --- but does no harm for other conditions
+\platpc@patch@after{pgfcore}{pxpgfmark}% by Takayuki YATO (ZR)
+
 \endinput
