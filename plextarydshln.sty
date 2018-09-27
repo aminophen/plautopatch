@@ -15,7 +15,7 @@
 %% package declaration
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{plextarydshln}
-  [2018/09/27 v0.2 Merge plext and arydshln]
+  [2018/09/27 v0.2a Merge plext and arydshln]
 \RequirePackage{plext}
 \RequirePackage{arydshln}
 
@@ -27,8 +27,12 @@
 %        So, hoping that users are clever enough to load
 %        them before plextarydshln, load known patches
 %        at this point when they are detected.
-%\@ifpackageloaded{array}{\RequirePackage{plextarray}}{}
-%\@ifpackageloaded{colortbl}{\RequirePackage{plextcolortbl}}{}
+\@ifpackageloaded{array}{\RequirePackage{plextarray}}{}
+\@ifpackageloaded{colortbl}{\RequirePackage{plextcolortbl}}{}
+%  Note: The following package is not necessarily loaded
+%        before arydshln; but handle the incompatibility
+%        if loaded before plextarydshln.
+\@ifpackageloaded{delarray}{\RequirePackage{plextdelarray}}{}
 
 %% patching internal code for arydshln.sty and plext.sty
 %
