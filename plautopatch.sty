@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2018/09/21 v0.5 Automated patches for pLaTeX/upLaTeX]
+    [2018/10/02 v0.6 Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -183,8 +183,7 @@
 \platpc@patch@after{atbegshi}{pxatbegshi}% platex-tools
 \platpc@patch@before{ftnright}{pxftnright}% platex-tools
 \platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
-% --- plextarydshln is not well tested, not activated for now
-%\platpc@patch@after@both{arydshln}{plext}{plextarydshln}% (maintained here!)
+\platpc@patch@after@both{arydshln}{plext}{plextarydshln}% (maintained here!)
 
 % for TikZ/PGF
 \platpc@patch@after{pgfrcs}{pxpgfrcs}% (maintained here!)
