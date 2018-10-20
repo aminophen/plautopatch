@@ -76,18 +76,21 @@ as a list separated by commas and spaces.
 \def\ITEMoTo#1 (#2) -> #3 (#4){%
   \item \textsf{#1} (\textsf{#2})\\
     $\rightarrow$ \textsf{#3} (\textsf{#4})}
+\def\ITEMoTx#1 (#2) -> #3 {%
+  \item \textsf{#1} (\textsf{#2})\\
+    $\rightarrow$ \textsf{#3} }
+\def\ITEMxTx#1      -> #2 {%
+  \item \textsf{#1}\\
+    $\rightarrow$ \textsf{#2} }
 \def\ITEMooTo#1 (#2) + #3 (#4) -> #5 (#6){%
   \item \textsf{#1} (\textsf{#2}) + \textsf{#3} (\textsf{#4})\\
     $\rightarrow$ \textsf{#5} (\textsf{#6})}
 \def\ITEMxoTo#1      + #2 (#3) -> #4 (#5){%
   \item \textsf{#1}               + \textsf{#2} (\textsf{#3})\\
     $\rightarrow$ \textsf{#4} (\textsf{#5})}
-\def\ITEMoTx#1 (#2) -> #3 {%
-  \item \textsf{#1} (\textsf{#2})\\
-    $\rightarrow$ \textsf{#3} }
-\def\ITEMxTx#1      -> #2     {%
-  \item \textsf{#1}\\
-    $\rightarrow$ \textsf{#2} }
+\def\ITEMxoTx#1      + #2 (#3) -> #4 {%
+  \item \textsf{#1}               + \textsf{#2} (\textsf{#3})\\
+    $\rightarrow$ \textsf{#4} }
 
 The legend:
 \begin{itemize}
@@ -102,8 +105,9 @@ Current version (\filedate\space\fileversion) supports the followings:
 \ITEMoTo  array (latex-tools) -> plarray (platex-tools)
 \ITEMooTo array (latex-tools) + plext (platex) -> plextarray (platex-tools)
 \ITEMooTo delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
-\ITEMxoTo colortbl + plext (platex) -> plextcolortbl (maintained here!)
-\ITEMxoTo arydshln + plext (platex) -> plextarydshln (maintained here!)
+\ITEMxoTx colortbl + plext (platex) -> plextcolortbl (maintained here!)
+\ITEMxTx  arydshln -> plarydshln (maintained here!)
+\ITEMxoTx arydshln + plext (platex) -> plextarydshln (maintained here!)
 \ITEMoTo  everysel (ms) -> pxeverysel (platex-tools)
 \ITEMoTo  everyshi (ms) -> pxeveryshi (platex-tools)
 \ITEMoTo  atbegshi (oberdiek) -> pxatbegshi (platex-tools)

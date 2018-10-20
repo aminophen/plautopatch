@@ -21,6 +21,7 @@ The following patches are currently registered:
 - array (latex-tools) + plext (platex) -> plextarray (platex-tools)
 - delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
 - colortbl + plext (platex) -> plextcolortbl (maintained here!)
+- arydshln -> plarydshln (maintained here!)
 - arydshln + plext (platex) -> plextarydshln (maintained here!)
 - everysel (ms) -> pxeverysel (platex-tools)
 - everyshi (ms) -> pxeveryshi (platex-tools)
@@ -43,6 +44,10 @@ together with the main package. Short information:
 - plextcolortbl.sty:
     Patch for colortbl.sty (by David Carlisle­) to improve
     compatibility with plext.sty in pLaTeX.
+    Can be used on pLaTeX/upLaTeX.
+- plarydshln.sty:
+    Patch for arydshln.sty (by Hiroshi Nakashima­) to improve
+    compatibility with pLaTeX/upLaTeX kernels.
     Can be used on pLaTeX/upLaTeX.
 - plextarydshln.sty:
     Patch for arydshln.sty (by Hiroshi Nakashima­) to improve
