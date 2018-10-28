@@ -5,7 +5,7 @@ TEXMF = $(shell kpsewhich -var-value=TEXMFHOME)
 all: plautopatch.pdf plautopatch-ja.pdf
 
 .SUFFIXES: .tex .dvi .pdf
-.tex.dvi:
+%.dvi: %.tex %.sty
 	platex $(KANJI) $<
 	platex $(KANJI) $<
 	rm *.aux *.log
