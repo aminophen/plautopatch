@@ -23,6 +23,7 @@ The following patches are currently registered:
 - colortbl + plext (platex) -> plextcolortbl (maintained here!)
 - arydshln -> plarydshln (maintained here!)
 - arydshln + plext (platex) -> plextarydshln (maintained here!)
+- siunitx -> plsiunitx (maintained here!)
 - everysel (ms) -> pxeverysel (platex-tools)
 - everyshi (ms) -> pxeveryshi (platex-tools)
 - atbegshi (oberdiek) -> pxatbegshi (platex-tools)
@@ -52,6 +53,10 @@ together with the main package. Short information:
 - plextarydshln.sty:
     Patch for arydshln.sty (by Hiroshi Nakashima­) to improve
     compatibility with plext.sty in pLaTeX.
+    Can be used on pLaTeX/upLaTeX.
+- plsiunitx.sty:
+    Patch for siunitx.sty (by Joseph Wright­) to fix
+    conflict with plarray.sty (platex-tools).
     Can be used on pLaTeX/upLaTeX.
 - pxpdfpages.sty:
     Patch for pdfpages.sty (by An­dreas Matthias) to support
