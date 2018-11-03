@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2018/11/03 v0.9 Automated patches for pLaTeX/upLaTeX]
+    [2018/11/04 v0.9a Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -194,5 +194,10 @@
 % --- pxpgfmark is useful on e-(u)pTeX + dvipdfmx
 % --- but does no harm for other conditions
 \platpc@patch@after{pgfcore}{pxpgfmark}% by Takayuki YATO (ZR)
+
+% special case, mainly for problematic packages
+% --- mdwtab forbids loading array
+% --- so plarray should also be forbidden
+\AtEndOfPackageFile{mdwtab}{\@namedef{ver@plarray.sty}{}}
 
 \endinput
