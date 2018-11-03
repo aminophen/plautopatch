@@ -1,0 +1,28 @@
+\RequirePackage{plautopatch}
+\documentclass{article}
+\usepackage[mode=text,detect-all]{siunitx}
+%\usepackage{plsiunitx}
+
+\makeatletter
+%\typeout{\meaning\@begindocumenthook}
+
+\begin{document}
+
+\SI{-2.5e-10}{mol.L^{-1}}
+\SI{1}{\micro\metre}
+\SI{}{\angstrom\arcminute\arcsecond\ohm}
+\vrule\SI{}{\ohm}\vrule
+
+$\begin{array}{lSs}
+%  \typeout{\meaning\@preamble}
+  a&-.123 & J.mol^{-1} \\
+  a&1.23e-3 & Hartree \\
+ \end{array}$
+
+\begin{tabular}{lSs}
+%  \typeout{\meaning\@preamble}
+  a&-.123 & J.mol^{-1} \\
+  a&1.23e-3 & Hartree \\
+\end{tabular}
+
+\end{document}
