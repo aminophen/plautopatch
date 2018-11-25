@@ -15,6 +15,7 @@ similar to those of ordinary LaTeX ones.
 
 The following patches are currently registered:
 
+- doc (latex) -> pldocverb (maintained here!)
 - tracefnt (latex) -> ptrace/uptrace (platex/uplatex)
 - fltrace (latex) -> pfltrace (platex)
 - array (latex-tools) -> plarray (platex-tools)
@@ -43,6 +44,10 @@ written by Martin Scharrer.
 This bundle may distribute some tiny patches
 together with the main package. Short information:
 
+- pldocverb.sty:
+    Patch for doc.sty (latex) to improve
+    compatibility with `\verb` redefinition in pLaTeX.
+    Can be used on pLaTeX/upLaTeX.
 - plextcolortbl.sty:
     Patch for colortbl.sty (by David Carlisle­) to improve
     compatibility with plext.sty in pLaTeX.
