@@ -28,6 +28,7 @@ The following patches are currently registered:
 - everyshi (ms) -> pxeveryshi (platex-tools)
 - atbegshi (oberdiek) -> pxatbegshi (platex-tools)
 - ftnright (latex-tools) -> pxftnright (platex-tools)
+- multicol (latex-tools) -> pxmulticol (platex-tools)
 - pdfpages -> pxpdfpages (maintained here!)
 - pgfrcs (pgf) -> pxpgfrcs (maintained here!)
 - pgfcore (pgf) -> pxpgfmark (by Takayuki YATO)
