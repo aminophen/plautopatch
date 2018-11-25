@@ -49,23 +49,23 @@ together with the main package. Short information:
     compatibility with `\verb` redefinition in pLaTeX.
     Can be used on pLaTeX/upLaTeX.
 - plextcolortbl.sty:
-    Patch for colortbl.sty (by David Carlisle­) to improve
+    Patch for colortbl.sty (by David Carlisle) to improve
     compatibility with plext.sty in pLaTeX.
     Can be used on pLaTeX/upLaTeX.
 - plarydshln.sty:
-    Patch for arydshln.sty (by Hiroshi Nakashima­) to improve
+    Patch for arydshln.sty (by Hiroshi Nakashima) to improve
     compatibility with pLaTeX/upLaTeX kernels.
     Can be used on pLaTeX/upLaTeX.
 - plextarydshln.sty:
-    Patch for arydshln.sty (by Hiroshi Nakashima­) to improve
+    Patch for arydshln.sty (by Hiroshi Nakashima) to improve
     compatibility with plext.sty in pLaTeX.
     Can be used on pLaTeX/upLaTeX.
 - plsiunitx.sty:
-    Patch for siunitx.sty (by Joseph Wright­) to fix
+    Patch for siunitx.sty (by Joseph Wright) to fix
     conflict with plarray.sty (platex-tools).
     Can be used on pLaTeX/upLaTeX.
 - pxpdfpages.sty:
-    Patch for pdfpages.sty (by An­dreas Matthias) to support
+    Patch for pdfpages.sty (by Andreas Matthias) to support
     Japanese-style crop marks (called 'tombow' in Japanese).
     Can be used on pLaTeX/upLaTeX.
 - pxpgfrcs.sty:
