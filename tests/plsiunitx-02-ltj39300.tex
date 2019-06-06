@@ -1,0 +1,28 @@
+%\RequirePackage{plautopatch}
+\documentclass{article}
+\usepackage{plsiunitx}
+\begin{document}
+
+\SI{2.5e-10}{mol.L^{-1}}
+
+\begin{tabular}{Ss}
+    \\  % hang: `ABD: EverySelectfont initializing macros`
+x & \\  % error: `! Use of \@@array doesn't match its definition.`
+\end{tabular}
+
+\vrule
+\begin{tabular}{Ss}
+  -.123 & J.mol^{-1} \\
+  1.23e-3 & W.h^{2} \\
+\end{tabular}%
+\vrule
+
+\vrule
+\begin{tabular}{Ss}
+   \\\hline
+   x & \\\hline
+   & x \\
+\end{tabular}%
+\vrule
+
+\end{document}
