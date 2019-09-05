@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2019/06/06 v0.9c Automated patches for pLaTeX/upLaTeX]
+    [2019/09/05 v0.9d Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -189,7 +189,9 @@
 \platpc@patch@after{atbegshi}{pxatbegshi}% platex-tools
 \platpc@patch@before{ftnright}{pxftnright}% platex-tools
 \platpc@patch@after{multicol}{pxmulticol}% platex-tools
+\platpc@patch@after{xspace}{pxxspace}% platex-tools
 \platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
+\platpc@patch@before{stfloats}{pxstfloats}% pxsttools -- (!!)
 
 % for TikZ/PGF
 \platpc@patch@after{pgfrcs}{pxpgfrcs}% (maintained here!)
