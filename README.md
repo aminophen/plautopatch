@@ -30,7 +30,9 @@ The following patches are currently registered:
 - atbegshi (oberdiek) -> pxatbegshi (platex-tools)
 - ftnright (latex-tools) -> pxftnright (platex-tools)
 - multicol (latex-tools) -> pxmulticol (platex-tools)
+- xspace (latex-tools) -> pxxspace (platex-tools)
 - pdfpages -> pxpdfpages (maintained here!)
+- stfloats (sttools) -> pxstfloats (pxsttools)
 - pgfrcs (pgf) -> pxpgfrcs (maintained here!)
 - pgfcore (pgf) -> pxpgfmark (by Takayuki YATO)
 
@@ -72,6 +74,11 @@ together with the main package. Short information:
     Patch for pgfrcs.sty (part of PGF) to support
     Japanese classes for vertical writing.
     Can be used on pLaTeX/upLaTeX.
+- pxstfloats.sty:
+    Patch for stfloats.sty (sttools) to improve
+    compatibility with pLaTeX/upLaTeX.
+    Actually part of pxsttols (https://github.com/aminophen/pxsttools)
+    but included here for convenience.
 
 ## Installation
 
