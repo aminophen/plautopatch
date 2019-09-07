@@ -15,7 +15,6 @@ all: plautopatch.pdf plautopatch-ja.pdf
 .PHONY: install clean
 install:
 	mkdir -p ${TEXMF}/doc/platex/plautopatch
-	cp ./Makefile ${TEXMF}/doc/platex/plautopatch/
 	cp ./LICENSE ${TEXMF}/doc/platex/plautopatch/
 	cp ./README.md ${TEXMF}/doc/platex/plautopatch/
 	cp ./*.pdf ${TEXMF}/doc/platex/plautopatch/
