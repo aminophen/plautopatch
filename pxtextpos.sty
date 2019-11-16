@@ -13,21 +13,20 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxtextpos}
-    [2019/11/16 v0.1 Patch to textpos for (u)pLaTeX]
+    [2019/11/16 v0.2 Patch to textpos for (u)pLaTeX]
 
 %% preparations
 \def\pxtxtpos@pkgname{pxtextpos}
-\def\pxtxtpos@error{\PackageError\pxtxtpos@pkgname}
 \def\pxtxtpos@warn{\PackageWarningNoLine\pxtxtpos@pkgname}
-
-%% check if \iftombow ... \fi is available
-\ifx\tombowtrue\@undefined
-  \pxtxtpos@warn{Tombow feature unavailable, aborting}\@ehc
-  \expandafter\endinput
-\fi
 
 %% load it
 \RequirePackageWithOptions{textpos}
+
+%% check if \iftombow ... \fi is available
+\ifx\tombowtrue\@undefined
+  \pxtxtpos@warn{Tombow feature unavailable, aborting}
+  \expandafter\endinput
+\fi
 
 %% known definition
 \def\pxtxtpos@textblockorigin#1#2{%
