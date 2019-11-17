@@ -13,7 +13,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxtextpos}
-    [2019/11/16 v0.2 Patch to textpos for (u)pLaTeX]
+    [2019/11/17 v0.2a Patch to textpos for (u)pLaTeX]
 
 %% preparations
 \def\pxtxtpos@pkgname{pxtextpos}
@@ -76,7 +76,10 @@
   \fi
 }
 
-%--------------------------------------- done
+%% reset
+\ifTP@abspos
+  \textblockorigin{0pt}{0pt}%
+\fi
 
 \endinput
 %% EOF
