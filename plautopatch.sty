@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2019/09/05 v0.9d Automated patches for pLaTeX/upLaTeX]
+    [2020/02/25 v0.9e Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -190,6 +190,7 @@
 \platpc@patch@before{ftnright}{pxftnright}% platex-tools
 \platpc@patch@after{multicol}{pxmulticol}% platex-tools
 \platpc@patch@after{xspace}{pxxspace}% platex-tools
+\platpc@patch@after{textpos}{pxtextpos}% (maintained here!)
 \platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
 \platpc@patch@before{stfloats}{pxstfloats}% pxsttools -- (!!)
 
