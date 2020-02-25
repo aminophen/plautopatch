@@ -31,6 +31,7 @@ The following patches are currently registered:
 - ftnright (latex-tools) -> pxftnright (platex-tools)
 - multicol (latex-tools) -> pxmulticol (platex-tools)
 - xspace (latex-tools) -> pxxspace (platex-tools)
+- textpos -> pxtextpos (maintained here!)
 - pdfpages -> pxpdfpages (maintained here!)
 - stfloats (sttools) -> pxstfloats (pxsttools)
 - pgfrcs (pgf) -> pxpgfrcs (maintained here!)
@@ -44,39 +45,37 @@ written by Martin Scharrer.
 ## Miscellaneous
 
 This bundle may distribute some tiny patches
-together with the main package. Short information:
+together with the main package.
+All packages are meant for use with pLaTeX/upLaTeX.
+Short information:
 
 - pldocverb.sty:
     Patch for doc.sty (latex) to improve
     compatibility with `\verb` redefinition in pLaTeX.
-    Can be used on pLaTeX/upLaTeX.
 - plextcolortbl.sty:
     Patch for colortbl.sty (by David Carlisle) to improve
     compatibility with plext.sty in pLaTeX.
-    Can be used on pLaTeX/upLaTeX.
 - plarydshln.sty:
     Patch for arydshln.sty (by Hiroshi Nakashima) to improve
-    compatibility with pLaTeX/upLaTeX kernels.
-    Can be used on pLaTeX/upLaTeX.
+    compatibility with pLaTeX kernel.
 - plextarydshln.sty:
     Patch for arydshln.sty (by Hiroshi Nakashima) to improve
     compatibility with plext.sty in pLaTeX.
-    Can be used on pLaTeX/upLaTeX.
 - plsiunitx.sty:
     Patch for siunitx.sty (by Joseph Wright) to fix
     conflict with plarray.sty (platex-tools).
-    Can be used on pLaTeX/upLaTeX.
+- pxtextpos.sty:
+    Patch for textpos.sty (by Norman Gray) to support
+    Japanese-style crop marks (called 'tombow' in Japanese).
 - pxpdfpages.sty:
     Patch for pdfpages.sty (by Andreas Matthias) to support
     Japanese-style crop marks (called 'tombow' in Japanese).
-    Can be used on pLaTeX/upLaTeX.
 - pxpgfrcs.sty:
     Patch for pgfrcs.sty (part of PGF) to support
     Japanese classes for vertical writing.
-    Can be used on pLaTeX/upLaTeX.
 - pxstfloats.sty:
     Patch for stfloats.sty (sttools) to improve
-    compatibility with pLaTeX/upLaTeX.
+    compatibility with pLaTeX kernel.
     Actually part of pxsttols (https://github.com/aminophen/pxsttools)
     but included here for convenience.
 
