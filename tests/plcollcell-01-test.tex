@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{plcollcell}
+
+\begin{document}
+
+---Ex 1---
+
+\newcolumntype{E}{>{\collectcell\textsf}c<{\endcollectcell}}
+\begin{tabular}{lE}
+   A & Example \\ % Same as \usermacro{Example}
+   B & Text    \\ % Same as \usermacro{Text}
+\end{tabular}
+
+---Ex 2---
+
+\makeatletter
+\newcommand*\Meaning[1]
+   {\def\CODE{#1}\texttt{\expandafter\strip@prefix\meaning\CODE}}%
+\newcolumntype{F}{>{\collectcell\fbox}l<{\endcollectcell}}%
+\newcolumntype{M}{>{\collectcell\Meaning}l<{\endcollectcell}}%
+\newcolumntype{T}{>{\collectcell\textsf}l<{\endcollectcell}}%
+\begin{tabular}{@{}F@{}|@{}M@{}|@{}T@{}}
+   A & B                       & HLDZ 2{HZLZ} \\
+   A & \empty\relax Z5D{TEST}Z & Z5D{TEST}Z  \\
+   A & \cci\empty Z5D{TEST}Z & Z5D{TEST}Z  \\
+   {\begin{tabular}{cFc} a & b & c \end{tabular}} &
+    \relax\begin{quote}AA\end{quote}   & $5+5${C} \\
+   A & B   \ccunskip B                 & 3{ttz} \\
+\end{tabular}%
+\makeatother
+
+---Ex 3---
+
+\def\abc{ \empty A & \empty B & \empty C }
+\begin{tabular}{MMM}
+  \multicolumn{2}{M}{\empty Multi} & \empty single \\
+  \abc \\
+\end{tabular}
+
+---Ex 4---
+
+\begin{tabular}{|F|F|F|}
+   \\
+   A & \\
+   A & B \\
+   A & B & \\
+   A & B & C \\
+   & \\
+   & B \\
+   & B & \\
+   & B & C \\
+   & & \\
+   & & C \\
+   A & B & C
+\end{tabular}
+
+---Twitter---
+
+\newcolumntype{V}{>{\ttfamily\collectcell\detokenize}l<{\endcollectcell}}
+\begin{tabular}{V}
+First\\
+Second\\
+Third\\
+\def
+\end{tabular}
+
+---Empty cell---
+
+\begin{tabular}{|r|c|}
+& xyz \\
+a & 111 \\
+bb & 22 \\
+ccc & 3
+\end{tabular}
+
+---Ex 5---
+
+\ifx\kanjiskip\undefined\else
+%
+\makeatletter
+\newcolumntype{J}{>{\collectcell\textsf}l<{\endcollectcell}}
+\newcolumntype{Q}{>{\collectcell\textsf}c<{\endcollectcell}}
+\newcolumntype{K}{>{\collectcell\textsf}r<{\endcollectcell}}
+\newcolumntype{Y}{>{\collectcell\@firstofone}c<{\endcollectcell}}
+\makeatother
+\begin{tabular}{|l|J|c|Q|r|K|Y|p{2cm}|}
+（左）&（J左）&（中）&（Q中）&（右）&（K右）&（1）&幅固定\\
+（左） & （J左） & （中） & （Q中） & （右） & （K右） & （1） & 幅固定 \\
+\end{tabular}
+%
+\fi
+
+\end{document}
