@@ -25,6 +25,7 @@ The following patches are currently registered:
 - arydshln -> plarydshln (maintained here!)
 - arydshln + plext (platex) -> plextarydshln (maintained here!)
 - siunitx -> plsiunitx (maintained here!)
+- collcell -> plcollcell (maintained here!)
 - everysel (ms) -> pxeverysel (platex-tools)
 - everyshi (ms) -> pxeveryshi (platex-tools)
 - atbegshi (oberdiek) -> pxatbegshi (platex-tools)
@@ -63,6 +64,9 @@ Short information:
     compatibility with plext.sty in pLaTeX.
 - plsiunitx.sty:
     Patch for siunitx.sty (by Joseph Wright) to fix
+    conflict with plarray.sty (platex-tools).
+- plcollcell.sty:
+    Patch for collcell.sty (by Martin Scharrer) to fix
     conflict with plarray.sty (platex-tools).
 - pxtextpos.sty:
     Patch for textpos.sty (by Norman Gray) to support

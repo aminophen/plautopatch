@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2020/02/25 v0.9e Automated patches for pLaTeX/upLaTeX]
+    [2020/05/05 v0.9f Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -182,6 +182,7 @@
 \platpc@patch@after{arydshln}{plarydshln}% (maintained here!)
 \platpc@patch@after@both{arydshln}{plext}{plextarydshln}% (maintained here!)
 \platpc@patch@after{siunitx}{plsiunitx}% (maintained here!)
+\platpc@patch@after{collcell}{plcollcell}% (maintained here!)
 % --- in most cases, pxeverysel can be safely loaded even after everysel
 % --- but it can fail when \AtBeginDocument{everysel} is involved
 \platpc@patch@before{everysel}{pxeverysel}% platex-tools
