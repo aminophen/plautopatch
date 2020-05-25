@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2020/05/05 v0.9f Automated patches for pLaTeX/upLaTeX]
+    [2020/05/25 v0.9g Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -194,6 +194,12 @@
 \platpc@patch@after{textpos}{pxtextpos}% (maintained here!)
 \platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
 \platpc@patch@before{stfloats}{pxstfloats}% pxsttools -- (!!)
+% --- in most cases, pxjahyper works without explicit options
+% --- however, in case a user specifies some, delay it
+% --- [TODO] if \AtBeginDocument{\usepackage{hyperref}} appears,
+% ----       writing to \jobname.out (= 'jacommentline' feature)
+% ----       does not work because it's too late.
+\AtBeginDocument{\platpc@patch@after{hyperref}{pxjahyper}}
 
 % for TikZ/PGF
 \platpc@patch@after{pgfrcs}{pxpgfrcs}% (maintained here!)

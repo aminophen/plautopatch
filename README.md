@@ -35,6 +35,7 @@ The following patches are currently registered:
 - textpos -> pxtextpos (maintained here!)
 - pdfpages -> pxpdfpages (maintained here!)
 - stfloats (sttools) -> pxstfloats (pxsttools)
+- hyperref -> pxjahyper (by Takayuki YATO)
 - pgfrcs (pgf) -> pxpgfrcs (maintained here!)
 - pgfcore (pgf) -> pxpgfmark (by Takayuki YATO)
 
