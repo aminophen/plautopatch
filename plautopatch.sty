@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2020/05/25 v0.9g Automated patches for pLaTeX/upLaTeX]
+    [2020/09/13 v0.9h Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -23,7 +23,21 @@
 \def\platpc@warn{\PackageWarningNoLine\platpc@pkgname}
 \def\platpc@info{\PackageInfo\platpc@pkgname}
 
-\RequirePackage{filehook}
+%% Since LaTeX2e 2020-10-01, most of features in filehook.sty
+%% is available in ltfilehook.dtx.
+%% The new code defines \declare@file@substitution,
+%% so we can detect it!
+
+\ifx\declare@file@substitution\@undefined
+  % LaTeX2e 2020-02-02 PL5 or older
+  \RequirePackage{filehook}
+  \let\platpc@ExecuteAfterPackage=\AtEndOfPackageFile
+  \let\platpc@ExecuteBeforePackage=\AtBeginOfPackageFile
+\else
+  % LaTeX2e 2020-10-01 or newer
+  \def\platpc@ExecuteAfterPackage#1{\AddToHook{package/after/#1}}
+  \def\platpc@ExecuteBeforePackage#1{\AddToHook{package/before/#1}}
+\fi
 
 % low-level helpers
 
@@ -67,7 +81,7 @@
   \@ifpackageloaded{#1}{%
     \csname platpc@end@#1\endcsname
   }{%
-    \AtEndOfPackageFile{#1}{\csname platpc@end@#1\endcsname}%
+    \platpc@ExecuteAfterPackage{#1}{\csname platpc@end@#1\endcsname}%
   }%
 }
 \@onlypreamble\platpc@patch@after
@@ -84,16 +98,16 @@
     \@ifpackageloaded{#2}{%
       \csname platpc@end@#1+#2\endcsname
     }{%
-      \AtEndOfPackageFile{#2}{\csname platpc@end@#1+#2\endcsname}%
+      \platpc@ExecuteAfterPackage{#2}{\csname platpc@end@#1+#2\endcsname}%
     }%
   }{%
     \@ifpackageloaded{#2}{%
-      \AtEndOfPackageFile{#1}{\csname platpc@end@#1+#2\endcsname}%
+      \platpc@ExecuteAfterPackage{#1}{\csname platpc@end@#1+#2\endcsname}%
     }{%
-      \AtEndOfPackageFile{#1}{%
+      \platpc@ExecuteAfterPackage{#1}{%
         \@ifpackageloaded{#2}{\csname platpc@end@#1+#2\endcsname}{}%
       }%
-      \AtEndOfPackageFile{#2}{%
+      \platpc@ExecuteAfterPackage{#2}{%
         \@ifpackageloaded{#1}{\csname platpc@end@#1+#2\endcsname}{}%
       }%
     }%
@@ -119,13 +133,7 @@
         % load the <patch> package
         \RequirePackage{#2}\platpc@addtolist{#2}%
         % avoid loading <orig> twice by discarding "\@@input <orig>" (*!)
-        \let\platpc@filehook@@atbegin\filehook@@atbegin
-        \def\filehook@@atbegin\@@input####1\filehook@atend{%
-          \let\filehook@@atbegin\platpc@filehook@@atbegin
-          % avoid infinite loop even when \AtEndOfPackageFile used
-          \expandafter\let\csname filehook@atend@#1.sty\endcsname\relax
-          \filehook@@atbegin
-          \filehook@atend}%
+        \platpc@discard@input{#1}%
         % all done
       }%
     }%
@@ -134,10 +142,29 @@
   \@ifpackageloaded{#1}{%
     \platpc@err@toolate{#1}%
   }{% else
-    \AtBeginOfPackageFile{#1}{\csname platpc@begin@#1\endcsname}%
+    \platpc@ExecuteBeforePackage{#1}{\csname platpc@begin@#1\endcsname}%
   }%
 }
 \@onlypreamble\platpc@patch@before
+
+\ifx\declare@file@substitution\@undefined
+  % LaTeX2e 2020-02-02 PL5 or older
+  \def\platpc@discard@input#1{%
+    \let\platpc@filehook@@atbegin\filehook@@atbegin
+    \def\filehook@@atbegin\@@input##1\filehook@atend{%
+      \let\filehook@@atbegin\platpc@filehook@@atbegin
+      % avoid infinite loop even when \AtEndOfPackageFile used
+      \expandafter\let\csname filehook@atend@#1.sty\endcsname\relax
+      \filehook@@atbegin
+      \filehook@atend}}
+\else
+  % LaTeX2e 2020-10-01 or newer
+  \def\platpc@discard@input#1{%
+    \let\platpc@InputIfFileExists\InputIfFileExists
+    \def\InputIfFileExists##1##2##3{%
+      \let\InputIfFileExists\platpc@InputIfFileExists}}
+\fi
+\@onlypreamble\platpc@discard@input
 
 % interface for users who want don't patches
 
@@ -213,6 +240,6 @@
 % special case, mainly for problematic packages
 % --- mdwtab forbids loading array
 % --- so plarray should also be forbidden
-\AtEndOfPackageFile{mdwtab}{\@namedef{ver@plarray.sty}{}}
+\platpc@ExecuteAfterPackage{mdwtab}{\@namedef{ver@plarray.sty}{}}
 
 \endinput
