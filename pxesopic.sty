@@ -25,6 +25,8 @@
 \def\pxesop@pkgname{pxesopic}
 \def\pxesop@error{\PackageError\pxesop@pkgname}
 \def\pxesop@warn{\PackageWarningNoLine\pxesop@pkgname}
+\let\pxesop@debug\@gobble
+\def\pxesop@debug#1{\typeout{\pxesop@pkgname: [DEBUG] #1}}% for debug
 
 %% hooks
 \ifx\declare@file@substitution\@undefined
@@ -49,36 +51,31 @@
 \def\pxesop@before{%
   \let\pxesop@AtBeginShipout\AtBeginShipout
   \def\AtBeginShipout##1{\def\pxesop@hook{##1}}% hide it
+  \pxesop@debug{\noexpand\AtBeginShipout disabled}%
   \let\pxesop@before\relax
 }
 \def\pxesop@after{%
   \let\AtBeginShipout\pxesop@AtBeginShipout    % restore
   \let\pxesop@AtBeginShipout\relax
+  \pxesop@debug{\noexpand\AtBeginShipout restored}%
   \let\@unknownoptionerror\relax % avoid an error
+  \pxesop@debug{\noexpand\@unknownoptionerror disabled}%
   \let\pxesop@after\relax
 }
 %%
 
 %% load it; be careful not to cause unknown option error!
 \expandafter\ifx\csname @unknownoptionerror\endcsname
-  \pxesop@error{This is a bug; please report}\@ehc
+  \pxesop@error{Failed to save \noexpand\@unknownoptionerror}\@ehc
 \fi
 \let\pxesop@unknownoptionerror\@unknownoptionerror
 %
-% === ONLY FOR DEBUG: REMOVE THIS - BEGIN
-\everyeof{%
-  \ifx\@unknownoptionerror\pxesop@unknownoptionerror \else
-  \ifx\@unknownoptionerror\@onlypreamble \else
-    \pxesop@error{This is a bug; please report}\@ehc
-  \fi\fi}
-% === ONLY FOR DEBUG: REMOVE THIS - END
-%
-\def\pxesop@currpkg{pxesopic}
+\let\pxesop@pkgtohook\pxesop@pkgname
 \@ifpackageloaded{plautopatch}{%
   \expandafter\ifx\csname platpc@begin@eso-pic\endcsname\relax
     % plautopatch.sty is loaded but the macro is \relax
     % => means that pxesopic.sty is automatically loaded
-    \def\pxesop@currpkg{eso-pic}
+    \def\pxesop@pkgtohook{eso-pic}%
   \fi
 }{}
 %
@@ -87,9 +84,15 @@
 \ProcessOptions\relax
 \RequirePackage{eso-pic}
 %
-\pxesop@ExecuteAfterPackage\pxesop@currpkg{%
-  \let\@unknownoptionerror\pxesop@unknownoptionerror}
-%% 
+%% [FIXME]
+%% on LaTeX2e 2020-02-02 PL5 or older, ``plautopatch.sty''
+%% discards \csname filehook@atend@#1.sty\endcsname
+%% so it fails to execute!
+\pxesop@ExecuteAfterPackage\pxesop@pkgtohook{%
+  \let\@unknownoptionerror\pxesop@unknownoptionerror
+  \pxesop@debug{\noexpand\@unknownoptionerror restored}%
+}
+%%
 
 %% delayed to detect \iftombow status
 \AtBeginDocument{%
