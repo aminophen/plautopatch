@@ -7,7 +7,7 @@
 %
 % This package is expected to be compatible with
 %   * eso-pic.sty
-%     ????/??/?? v?.? -- ????/??/?? v?.?
+%     ????/??/?? v?.? -- 2018/04/12 v2.0h
 %
 % --------------------------------------------------------------
 % [Note]
@@ -19,7 +19,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxesopic}
-    [2020/09/27 v0.2 Patch to eso-pic for tombow]
+    [2020/09/27 v0.2a Patch to eso-pic for tombow]
 
 %% preparations
 \def\pxesop@pkgname{pxesopic}
@@ -90,10 +90,11 @@
   % note that ``plautopatch.sty'' discards the hook
   % on LaTeX2e 2020-02-02 PL5 or older
   \ifx\declare@file@substitution\@undefined
+    \let\pxesop@pkgtohook\pxesop@pkgname
+    % throw an error for unsupported usage
     % [FIXME] the error below is actually unnecessary when
     % none of ``eso-pic.sty'' options is used; how to detect that?
     \pxesop@error{Try loading \pxesop@pkgname\space by hand}\@ehc
-    \let\pxesop@pkgtohook\pxesop@pkgname
   \fi
 \else
   \let\pxesop@pkgtohook\pxesop@pkgname

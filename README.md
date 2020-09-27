@@ -33,6 +33,7 @@ The following patches are currently registered:
 - multicol (latex-tools) -> pxmulticol (platex-tools)
 - xspace (latex-tools) -> pxxspace (platex-tools)
 - textpos -> pxtextpos (maintained here!)
+- eso-pic -> pxesopic (maintained here!)
 - pdfpages -> pxpdfpages (maintained here!)
 - stfloats (sttools) -> pxstfloats (pxsttools)
 - hyperref -> pxjahyper (by Takayuki YATO)
@@ -71,6 +72,9 @@ Short information:
     conflict with plarray.sty (platex-tools).
 - pxtextpos.sty:
     Patch for textpos.sty (by Norman Gray) to support
+    Japanese-style crop marks (called 'tombow' in Japanese).
+- pxesopic.sty:
+    Patch for eso-pic.sty (by Rolf Niepraschk) to support
     Japanese-style crop marks (called 'tombow' in Japanese).
 - pxpdfpages.sty:
     Patch for pdfpages.sty (by Andreas Matthias) to support

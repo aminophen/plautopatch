@@ -227,7 +227,10 @@
 \platpc@patch@after{multicol}{pxmulticol}% platex-tools
 \platpc@patch@after{xspace}{pxxspace}% platex-tools
 \platpc@patch@after{textpos}{pxtextpos}% (maintained here!)
-\platpc@patch@before{eso-pic}{pxesopic}% (maintained here!)
+% --- until LaTeX2e 2020-10-01, patching eso-pic automatically
+% --- is not supported by pxesopic
+\@ifl@t@r{\fmtversion}{2020/10/01}%
+  {\platpc@patch@before{eso-pic}{pxesopic}}{}% (maintained here!)
 \platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
 \platpc@patch@before{stfloats}{pxstfloats}% pxsttools -- (!!)
 % --- in most cases, pxjahyper works without explicit options
