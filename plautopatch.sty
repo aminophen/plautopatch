@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2020/09/25 v0.9i Automated patches for pLaTeX/upLaTeX]
+    [2020/09/27 v0.9j Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -227,6 +227,7 @@
 \platpc@patch@after{multicol}{pxmulticol}% platex-tools
 \platpc@patch@after{xspace}{pxxspace}% platex-tools
 \platpc@patch@after{textpos}{pxtextpos}% (maintained here!)
+\platpc@patch@before{eso-pic}{pxesopic}% (maintained here!)
 \platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
 \platpc@patch@before{stfloats}{pxstfloats}% pxsttools -- (!!)
 % --- in most cases, pxjahyper works without explicit options
