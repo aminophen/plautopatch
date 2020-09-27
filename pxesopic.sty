@@ -70,22 +70,12 @@
 \fi
 \let\pxesop@unknownoptionerror\@unknownoptionerror
 %
-\let\pxesop@pkgtohook\pxesop@pkgname
+\chardef\pxesop@status\z@
 \@ifpackageloaded{plautopatch}{%
   \expandafter\ifx\csname platpc@begin@eso-pic\endcsname\relax
     % ``plautopatch.sty'' is loaded but the macro is \relax
     % => means that ``pxesopic.sty'' is automatically loaded
-    \def\pxesop@pkgtohook{eso-pic}%
-    % Limitation: on LaTeX2e 2020-02-02 PL5 or older,
-    % ``plautopatch.sty'' discards the hook;
-    % this case is unsupported, throw an error.
-    % [FIXME]
-    %   This error is needed only when
-    %   "automatically loaded and option used"
-    \ifx\declare@file@substitution\@undefined
-      \pxesop@error{Try loading \pxesop@pkgname\space by hand}\@ehc
-      \let\pxesop@pkgtohook\pxesop@pkgname
-    \fi
+    \chardef\pxesop@status\@ne
   \fi
 }{}
 %
@@ -95,6 +85,19 @@
 \RequirePackage{eso-pic}
 %
 %% recover the error
+\ifnum\pxesop@status>\z@ % auto
+  \def\pxesop@pkgtohook{eso-pic}%
+  % note that ``plautopatch.sty'' discards the hook
+  % on LaTeX2e 2020-02-02 PL5 or older
+  \ifx\declare@file@substitution\@undefined
+    % [FIXME] the error below is actually unnecessary when
+    % none of ``eso-pic.sty'' options is used; how to detect that?
+    \pxesop@error{Try loading \pxesop@pkgname\space by hand}\@ehc
+    \let\pxesop@pkgtohook\pxesop@pkgname
+  \fi
+\else
+  \let\pxesop@pkgtohook\pxesop@pkgname
+\fi
 \pxesop@ExecuteAfterPackage\pxesop@pkgtohook{%
   \let\@unknownoptionerror\pxesop@unknownoptionerror
   \pxesop@debug{\noexpand\@unknownoptionerror restored}%
