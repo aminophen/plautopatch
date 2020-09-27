@@ -41,7 +41,7 @@
 \fi
 
 %% the contents of \AtBeginShipout is dependent on \iftombow;
-%% delay execution of \AtBeginShipout inside ``eso-pic.sty'
+%% delay execution of \AtBeginShipout inside ``eso-pic.sty''
 %% until \AtBeginDocument, to support both (u)pLaTeX kernel
 %% and ``gentombow.sty''
 \RequirePackage{atbegshi}% eso-pic requires atbegshi
@@ -58,7 +58,7 @@
   \let\AtBeginShipout\pxesop@AtBeginShipout    % restore
   \let\pxesop@AtBeginShipout\relax
   \pxesop@debug{\noexpand\AtBeginShipout restored}%
-  \let\@unknownoptionerror\relax % avoid an error
+  \let\@unknownoptionerror\relax %% avoid an error
   \pxesop@debug{\noexpand\@unknownoptionerror disabled}%
   \let\pxesop@after\relax
 }
@@ -73,9 +73,19 @@
 \let\pxesop@pkgtohook\pxesop@pkgname
 \@ifpackageloaded{plautopatch}{%
   \expandafter\ifx\csname platpc@begin@eso-pic\endcsname\relax
-    % plautopatch.sty is loaded but the macro is \relax
-    % => means that pxesopic.sty is automatically loaded
+    % ``plautopatch.sty'' is loaded but the macro is \relax
+    % => means that ``pxesopic.sty'' is automatically loaded
     \def\pxesop@pkgtohook{eso-pic}%
+    % Limitation: on LaTeX2e 2020-02-02 PL5 or older,
+    % ``plautopatch.sty'' discards the hook;
+    % this case is unsupported, throw an error.
+    % [FIXME]
+    %   This error is needed only when
+    %   "automatically loaded and option used"
+    \ifx\declare@file@substitution\@undefined
+      \pxesop@error{Try loading \pxesop@pkgname\space by hand}\@ehc
+      \let\pxesop@pkgtohook\pxesop@pkgname
+    \fi
   \fi
 }{}
 %
@@ -84,10 +94,7 @@
 \ProcessOptions\relax
 \RequirePackage{eso-pic}
 %
-%% [FIXME]
-%% on LaTeX2e 2020-02-02 PL5 or older, ``plautopatch.sty''
-%% discards \csname filehook@atend@#1.sty\endcsname
-%% so it fails to execute!
+%% recover the error
 \pxesop@ExecuteAfterPackage\pxesop@pkgtohook{%
   \let\@unknownoptionerror\pxesop@unknownoptionerror
   \pxesop@debug{\noexpand\@unknownoptionerror restored}%
