@@ -32,6 +32,12 @@
 \@ifclassloaded{memoir}{%
   \pxesop@warn{This package should not be loaded with memoir.cls}}{}
 
+\@ifpackageloaded{eso-pic}{%
+  \pxesop@error{%
+    Package eso-pic is already loaded!\MessageBreak
+    Load pxesopic earlier}\@ehc
+}{}
+
 %% hooks
 \ifx\declare@file@substitution\@undefined
   % LaTeX2e 2020-02-02 PL5 or older
