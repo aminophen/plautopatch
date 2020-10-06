@@ -171,6 +171,8 @@
       %% specific BEGIN
       \advance\ESO@tempdima 1in\relax
       \advance\ESO@tempdimb 1in\relax
+      \advance\ESO@tempdima \hoffset\relax
+      \advance\ESO@tempdimb \voffset\relax
       %% specific END
       \AtPageLowerLeft{%
         \put(\LenToUnit{\ESO@tempdima},\LenToUnit{\ESO@tempdimb}){##1}%
@@ -199,6 +201,10 @@
     \ifESO@texcoord
       \advance\ESO@tempdimb\paperheight % [FIXME] not sure!
     \fi
+    %% specific BEGIN
+    \advance\ESO@tempdima -\hoffset\relax
+    \advance\ESO@tempdimb \voffset\relax
+    %% specific END
     \nointerlineskip
     \AtBeginShipoutUpperLeft{%
       \put(\LenToUnit{\ESO@tempdima},\LenToUnit{\ESO@tempdimb}){%
