@@ -13,20 +13,33 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxtextpos}
-    [2019/11/17 v0.2a Patch to textpos for tombow]
+    [2020/10/06 v0.3a Patch to textpos for tombow]
 
 %% preparations
 \def\pxtxtpos@pkgname{pxtextpos}
 \def\pxtxtpos@warn{\PackageWarningNoLine\pxtxtpos@pkgname}
+\let\pxtxtpos@debug\@gobble
+%\def\pxtxtpos@debug#1{\typeout{\pxtxtpos@pkgname: [DEBUG] #1}}% for debug
 
 %% load it
 \RequirePackageWithOptions{textpos}
 
-%% check if \iftombow ... \fi is available
-\ifx\tombowtrue\@undefined
-  \pxtxtpos@warn{Tombow feature unavailable, aborting}
-  \expandafter\endinput
-\fi
+%% delayed to detect \iftombow status until \AtBeginDocument,
+%% to support both (u)pLaTeX kernel and ``gentombow.sty''
+\AtBeginDocument{%
+  % just in case ...
+  \ifx\tombowtrue\@undefined
+    \pxtxtpos@debug{Tombow feature unavailable, no patch applied}%
+    \let\pxtxtpos@switch\relax
+  \fi
+  % do it
+  \pxtxtpos@switch}%
+%
+\def\pxtxtpos@switch{%
+  \iftombow
+    \let\textblockorigin\pxtxtpos@textblockorigin
+    \ifTP@abspos\textblockorigin{0pt}{0pt}\fi %% reset
+  \fi}
 
 %% known definition
 \def\pxtxtpos@textblockorigin#1#2{%
@@ -47,14 +60,16 @@
 }
 \@onlypreamble\pxtxtpos@textblockorigin
 
-%% redefine it
+%% check definition
 \ifx\textblockorigin\pxtxtpos@textblockorigin\else
   \pxtxtpos@warn{%
     Command \noexpand\textblockorigin is beyond my knowledge.\MessageBreak
     I will apply the patch anyway, but it may break:\MessageBreak
     Please report to the author of `\pxtxtpos@pkgname.sty'}
 \fi
-\def\textblockorigin#1#2{%
+
+%% new definition
+\def\pxtxtpos@textblockorigin#1#2{%
   \ifTP@abspos
     \TP@ox=-1in    \addtolength\TP@ox{#1}
     \TP@oy=-1in    \addtolength\TP@oy{#2}
@@ -75,11 +90,6 @@
        \protect\usepackage[absolute]{textpos}}
   \fi
 }
-
-%% reset
-\ifTP@abspos
-  \textblockorigin{0pt}{0pt}%
-\fi
 
 \endinput
 %% EOF
