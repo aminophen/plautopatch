@@ -19,14 +19,14 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxesopic}
-    [2020/10/06 v0.2i Patch to eso-pic for tombow]
+    [2020/10/06 v0.3a Patch to eso-pic for tombow]
 
 %% preparations
 \def\pxesop@pkgname{pxesopic}
 \def\pxesop@error{\PackageError\pxesop@pkgname}
 \def\pxesop@warn{\PackageWarningNoLine\pxesop@pkgname}
 \let\pxesop@debug\@gobble
-\def\pxesop@debug#1{\typeout{\pxesop@pkgname: [DEBUG] #1}}% for debug
+%\def\pxesop@debug#1{\typeout{\pxesop@pkgname: [DEBUG] #1}}% for debug
 
 %% hooks
 \ifx\declare@file@substitution\@undefined
@@ -45,6 +45,14 @@
 %% until \AtBeginDocument, to support both (u)pLaTeX kernel
 %% and ``gentombow.sty''
 \RequirePackage{atbegshi}% eso-pic requires atbegshi
+\ifx\AtBegShi@Output\@undefined
+  % LaTeX2e 2020-10-01: an emulation by ``atbegshi-ltx.sty''
+  % => pLaTeX2e 2020-10-01 natively supports it
+\else
+  % older: the real ``atbegshi.sty'' is loaded
+  \RequirePackage{pxatbegshi}
+\fi
+%
 \pxesop@ExecuteBeforePackage{eso-pic}{\pxesop@before}
 \pxesop@ExecuteAfterPackage{eso-pic}{\pxesop@after}
 %
