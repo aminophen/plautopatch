@@ -9,13 +9,13 @@
 %   * pdfpages.sty
 %     (2015/07/19 v0.5a -- 2020/01/28 v0.5q)
 %   * plcore.ltx in platex
-%     (2001/09/26 v1.2a -- 2020/03/05 v1.3e)
+%     (2001/09/26 v1.2a -- 2020/09/28 v1.3g)
 %
 
 %% package declaration
-\NeedsTeXFormat{pLaTeX2e}
+\NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxpdfpages}
-  [2018/08/20 v0.1 Patch to pdfpages for (u)pLaTeX]
+  [2020/10/06 v0.2a Patch to pdfpages for tombow]
 
 %% preparations
 \def\pxpdpg@pkgname{pxpdfpages}
@@ -23,8 +23,14 @@
 \def\pxpdpg@info{\PackageInfo\pxpdpg@pkgname}
 
 %% load it
-\RequirePackageWithOptions{pdfpages}
-\RequirePackage{pxatbegshi}% pdfpages requires atbegshi
+\RequirePackageWithOptions{pdfpages}% pdfpages requires atbegshi
+\ifx\AtBegShi@Output\@undefined
+  % LaTeX2e 2020-10-01: an emulation by ``atbegshi-ltx.sty''
+  % => pLaTeX2e 2020-10-01 natively supports it
+\else
+  % older: the real ``atbegshi.sty'' is loaded
+  \RequirePackage{pxatbegshi}
+\fi
 
 %% patch internal for pdfpages to work with tombow
 %% Note: this code should be copied to gentombow.sty!
@@ -40,10 +46,9 @@
     \edef\AM@xmargin{\the\@tempdima}%
     \setlength{\@tempdima}{\AM@ymargin\iftombow-1in\fi}%
     \edef\AM@ymargin{\the\@tempdima}%
-  }
-  {\pxpdpg@info{Patch for pdfpages applied}}
-  {\pxpdpg@warn{Patch for pdfpages failed}}%
-  }
+  }%
+  {\pxpdpg@info{Patch for pdfpages applied}}%
+  {\pxpdpg@warn{Patch for pdfpages failed}}}
 \AtBeginDocument{\@ifpackageloaded{pdfpages}{\pxpdpg@patch@pdfpages}{}}
 
 %% all done
