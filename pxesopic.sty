@@ -7,7 +7,7 @@
 %
 % This package is expected to be compatible with
 %   * eso-pic.sty
-%     ????/??/?? v?.? -- 2018/04/12 v2.0h
+%     2015/07/21 v2.0g -- 2020/09/27 v2.0i
 %
 % --------------------------------------------------------------
 % [Note]
@@ -19,7 +19,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxesopic}
-    [2020/09/27 v0.2a Patch to eso-pic for tombow]
+    [2020/10/06 v0.2i Patch to eso-pic for tombow]
 
 %% preparations
 \def\pxesop@pkgname{pxesopic}
@@ -84,6 +84,10 @@
 \ProcessOptions\relax
 \RequirePackage{eso-pic}
 %
+%% ensure internal dimensions added in ``eso-pic.sty'' v2.0i
+\ifx\ESO@tempdima\@undefined \newdimen\ESO@tempdima \fi
+\ifx\ESO@tempdimb\@undefined \newdimen\ESO@tempdimb \fi
+%
 %% recover the error
 \ifnum\pxesop@status>\z@ % auto
   \def\pxesop@pkgtohook{eso-pic}%
@@ -121,16 +125,16 @@
   %% \AtStockLowerLeft: based on TRUE of \ESO@isMEMOIR
   \renewcommand\AtStockLowerLeft[1]{%
     \begingroup
-      \@tempdima=-\stockwidth
-      \advance\@tempdima\paperwidth
-      \@tempdimb=-\stockheight
-      \advance\@tempdimb\paperheight
+      \ESO@tempdima=-\stockwidth
+      \advance\ESO@tempdima\paperwidth
+      \ESO@tempdimb=-\stockheight
+      \advance\ESO@tempdimb\paperheight
       %% specific BEGIN
-      \advance\@tempdima 1in\relax
-      \advance\@tempdimb 1in\relax
+      \advance\ESO@tempdima 1in\relax
+      \advance\ESO@tempdimb 1in\relax
       %% specific END
       \AtPageLowerLeft{%
-        \put(\LenToUnit{\@tempdima},\LenToUnit{\@tempdimb}){##1}%
+        \put(\LenToUnit{\ESO@tempdima},\LenToUnit{\ESO@tempdimb}){##1}%
       }%
     \endgroup
   }% ===
@@ -151,20 +155,20 @@
   %
   %% \AtBeginShipout: based on TRUE of \ESO@isMEMOIR
   \AtBeginShipout{%
-    \@tempdima=\dimexpr(\stockwidth-\paperwidth)/2\relax
-    \@tempdimb=-\dimexpr(\stockheight+\paperheight)/2\relax
+    \ESO@tempdima=\dimexpr(\stockwidth-\paperwidth)/2\relax
+    \ESO@tempdimb=-\dimexpr(\stockheight+\paperheight)/2\relax
     \ifESO@texcoord
-      \advance\@tempdimb\paperheight % [FIXME] not sure!
+      \advance\ESO@tempdimb\paperheight % [FIXME] not sure!
     \fi
     \nointerlineskip
     \AtBeginShipoutUpperLeft{%
-      \put(\LenToUnit{\@tempdima},\LenToUnit{\@tempdimb}){%
+      \put(\LenToUnit{\ESO@tempdima},\LenToUnit{\ESO@tempdimb}){%
         \ESO@HookIIIBG\ESO@HookIBG\ESO@HookIIBG
         \global\let\ESO@HookIIBG\@empty
       }%
     }%
     \AtBeginShipoutUpperLeftForeground{%
-      \put(\LenToUnit{\@tempdima},\LenToUnit{\@tempdimb}){%
+      \put(\LenToUnit{\ESO@tempdima},\LenToUnit{\ESO@tempdimb}){%
         \ESO@HookIFG\ESO@HookIIFG\ESO@HookIIIFG
         \global\let\ESO@HookIIFG\@empty
       }%
