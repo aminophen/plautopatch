@@ -20,7 +20,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxesopic}
-    [2020/10/06 v0.3c Patch to eso-pic for tombow]
+    [2020/10/06 v0.3d Patch to eso-pic for tombow]
 
 %% preparations
 \def\pxesop@pkgname{pxesopic}
@@ -93,7 +93,9 @@
   \expandafter\ifx\csname platpc@begin@eso-pic\endcsname\relax
     % ``plautopatch.sty'' is loaded but the macro is \relax
     % => means that ``pxesopic.sty'' is automatically loaded
-    \chardef\pxesop@status\@ne
+    \@ifl@t@r{\fmtversion}{2020/10/01}{%
+      \chardef\pxesop@status\@ne
+    }{}%
   \fi
 }{}
 %
