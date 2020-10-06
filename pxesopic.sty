@@ -12,7 +12,8 @@
 % --------------------------------------------------------------
 % [Note]
 % The package ``pxesopic.sty'' relies heavily on internals
-% of ``plautopatch.sty''
+% of ``plautopatch.sty''.
+% Also, ``pxesopic.sty'' is incompatible with ``memoior.cls''.
 % --------------------------------------------------------------
 %
 
@@ -27,6 +28,9 @@
 \def\pxesop@warn{\PackageWarningNoLine\pxesop@pkgname}
 \let\pxesop@debug\@gobble
 %\def\pxesop@debug#1{\typeout{\pxesop@pkgname: [DEBUG] #1}}% for debug
+
+\@ifclassloaded{memoir}{%
+  \pxesop@warn{This package should not be loaded with memoir.cls}}{}
 
 %% hooks
 \ifx\declare@file@substitution\@undefined
