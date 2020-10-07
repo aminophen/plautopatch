@@ -1,16 +1,20 @@
-KANJI = -kanji=utf8
-FONTMAP = -f ipaex.map -f ptex-ipaex.map
 TEXMF = $(shell kpsewhich -var-value=TEXMFHOME)
+
+KANJI = -kanji=utf8
+#FONTMAP = -f ipaex.map -f ptex-ipaex.map
+FONTMAP = -f haranoaji.map -f ptex-haranoaji.map
+LTX = platex $(KANJI)
+DPX = dvipdfmx $(FONTMAP)
 
 all: plautopatch.pdf plautopatch-ja.pdf
 
 .SUFFIXES: .tex .dvi .pdf
 .tex.dvi:
-	platex $(KANJI) $<
-	platex $(KANJI) $<
+	$(LTX) $<
+	$(LTX) $<
 	rm *.aux *.log
 .dvi.pdf:
-	dvipdfmx $(FONTMAP) $<
+	$(DPX) $<
 
 .PHONY: install clean
 install:
