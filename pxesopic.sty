@@ -20,7 +20,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxesopic}
-    [2020/10/06 v0.3d Patch to eso-pic for tombow]
+    [2020/10/08 v0.3e Patch to eso-pic for tombow]
 
 %% preparations
 \def\pxesop@pkgname{pxesopic}
@@ -129,22 +129,22 @@
 }
 %%
 
-%% delayed to detect \iftombow status
-\AtBeginDocument{%
-  % just in case ...
+%% do it
+%-- similar to bounddvi.sty (checked 2020/10/08 v8.2)
+% detection of \iftombow status is delayed until \AtBeginDocument,
+% to support both (u)pLaTeX kernel and ``gentombow.sty''
+\AtBeginDocument{\pxesop@do}
+\def\pxesop@do{%
   \ifx\tombowtrue\@undefined
     \pxesop@debug{Tombow feature unavailable, no patch applied}%
-    \let\pxesop@switch\pxesop@orig
+    \let\pxesop@switch\pxesop@orig % skip if-tokens and restore
   \fi
-  % do it
-  \pxesop@switch}%
+  \pxesop@switch}
 %
 \def\pxesop@switch{%
   \iftombow \pxesop@ensure@stock \pxesop@new
   \else \pxesop@orig \fi}
 %
-%% \pxesop@ensure@stock
-%  -- based on bounddvi.sty (checked 2020/10/06 v8.1)
 \def\pxesop@ensure@stock{%
   %\iftombow
     % if \stockwidth/\stockheight are not available,
@@ -162,6 +162,7 @@
     \fi
   %\fi
 }
+%--
 %
 %% for \iftombow is FALSE => restore from ``eso-pic.sty''
 \expandafter\def\expandafter\pxesop@orig\expandafter{%

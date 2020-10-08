@@ -13,7 +13,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxtextpos}
-    [2020/10/06 v0.3a Patch to textpos for tombow]
+    [2020/10/08 v0.3e Patch to textpos for tombow]
 
 %% preparations
 \def\pxtxtpos@pkgname{pxtextpos}
@@ -24,16 +24,17 @@
 %% load it
 \RequirePackageWithOptions{textpos}
 
-%% delayed to detect \iftombow status until \AtBeginDocument,
-%% to support both (u)pLaTeX kernel and ``gentombow.sty''
-\AtBeginDocument{%
-  % just in case ...
+%% do it
+%-- similar to bounddvi.sty (checked 2020/10/08 v8.2)
+% detection of \iftombow status is delayed until \AtBeginDocument,
+% to support both (u)pLaTeX kernel and ``gentombow.sty''
+\AtBeginDocument{\pxtxtpos@do}
+\def\pxtxtpos@do{%
   \ifx\tombowtrue\@undefined
     \pxtxtpos@debug{Tombow feature unavailable, no patch applied}%
-    \let\pxtxtpos@switch\relax
+    \let\pxtxtpos@switch\relax % skip if-tokens and do nothing
   \fi
-  % do it
-  \pxtxtpos@switch}%
+  \pxtxtpos@switch}
 %
 \def\pxtxtpos@switch{%
   \iftombow
