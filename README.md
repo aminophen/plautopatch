@@ -15,13 +15,13 @@ similar to those of ordinary LaTeX ones.
 
 The following patches are currently registered:
 
-- doc (latex) -> pldocverb (maintained here!)
+- doc (latex) -> pldocverb (platex-tools)
 - tracefnt (latex) -> ptrace/uptrace (platex/uplatex)
 - fltrace (latex) -> pfltrace (platex)
 - array (latex-tools) -> plarray (platex-tools)
 - array (latex-tools) + plext (platex) -> plextarray (platex-tools)
 - delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
-- colortbl + plext (platex) -> plextcolortbl (maintained here!)
+- colortbl + plext (platex) -> plextcolortbl (platex-tools)
 - arydshln -> plarydshln (maintained here!)
 - arydshln + plext (platex) -> plextarydshln (maintained here!)
 - siunitx -> plsiunitx (maintained here!)
@@ -32,9 +32,9 @@ The following patches are currently registered:
 - ftnright (latex-tools) -> pxftnright (platex-tools)
 - multicol (latex-tools) -> pxmulticol (platex-tools)
 - xspace (latex-tools) -> pxxspace (platex-tools)
-- textpos -> pxtextpos (maintained here!)
-- eso-pic -> pxesopic (maintained here!)
-- pdfpages -> pxpdfpages (maintained here!)
+- textpos -> pxtextpos (gentombow)
+- eso-pic -> pxesopic (gentombow)
+- pdfpages -> pxpdfpages (gentombow)
 - stfloats (sttools) -> pxstfloats (pxsttools)
 - hyperref -> pxjahyper (by Takayuki YATO)
 - pgfrcs (pgf) -> pxpgfrcs (maintained here!)
@@ -52,12 +52,6 @@ together with the main package.
 All packages are meant for use with pLaTeX/upLaTeX.
 Short information:
 
-- pldocverb.sty:
-    Patch for doc.sty (latex) to improve
-    compatibility with `\verb` redefinition in pLaTeX.
-- plextcolortbl.sty:
-    Patch for colortbl.sty (by David Carlisle) to improve
-    compatibility with plext.sty in pLaTeX.
 - plarydshln.sty:
     Patch for arydshln.sty (by Hiroshi Nakashima) to improve
     compatibility with pLaTeX kernel.
@@ -70,15 +64,6 @@ Short information:
 - plcollcell.sty:
     Patch for collcell.sty (by Martin Scharrer) to fix
     conflict with plarray.sty (platex-tools).
-- pxtextpos.sty:
-    Patch for textpos.sty (by Norman Gray) to support
-    Japanese-style crop marks (called 'tombow' in Japanese).
-- pxesopic.sty:
-    Patch for eso-pic.sty (by Rolf Niepraschk) to support
-    Japanese-style crop marks (called 'tombow' in Japanese).
-- pxpdfpages.sty:
-    Patch for pdfpages.sty (by Andreas Matthias) to support
-    Japanese-style crop marks (called 'tombow' in Japanese).
 - pxpgfrcs.sty:
     Patch for pgfrcs.sty (part of PGF) to support
     Japanese classes for vertical writing.

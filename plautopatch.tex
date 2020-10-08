@@ -79,6 +79,9 @@ as a list separated by commas and spaces.
 \def\ITEMoTx#1 (#2) -> #3 {%
   \item \textsf{#1} (\textsf{#2})\\
     $\rightarrow$ \textsf{#3} }
+\def\ITEMxTo#1      -> #2 (#3){%
+  \item \textsf{#1}\\
+    $\rightarrow$ \textsf{#2} (\textsf{#3})}
 \def\ITEMxTx#1      -> #2 {%
   \item \textsf{#1}\\
     $\rightarrow$ \textsf{#2} }
@@ -100,13 +103,13 @@ The legend:
 
 Current version (\filedate\space\fileversion) supports the followings:
 \begin{itemize}
-\ITEMoTo  doc (latex) -> pldocverb (maintained here!)
+\ITEMoTo  doc (latex) -> pldocverb (platex-tools)
 \ITEMoTo  tracefnt (latex) -> ptrace/uptrace (platex/uplatex)
 \ITEMoTo  fltrace (latex) -> pfltrace (platex)
 \ITEMoTo  array (latex-tools) -> plarray (platex-tools)
 \ITEMooTo array (latex-tools) + plext (platex) -> plextarray (platex-tools)
 \ITEMooTo delarray (latex-tools) + plext (platex) -> plextdelarray (platex-tools)
-\ITEMxoTx colortbl + plext (platex) -> plextcolortbl (maintained here!)
+\ITEMxoTo colortbl + plext (platex) -> plextcolortbl (platex-tools)
 \ITEMxTx  arydshln -> plarydshln (maintained here!)
 \ITEMxoTx arydshln + plext (platex) -> plextarydshln (maintained here!)
 \ITEMxTx  siunitx -> plsiunitx (maintained here!)
@@ -117,9 +120,9 @@ Current version (\filedate\space\fileversion) supports the followings:
 \ITEMoTo  ftnright (latex-tools) -> pxftnright (platex-tools)
 \ITEMoTo  multicol (latex-tools) -> pxmulticol (platex-tools)
 \ITEMoTo  xspace (latex-tools) -> pxxspace (platex-tools)
-\ITEMxTx  textpos -> pxtextpos (maintained here!)
-\ITEMxTx  eso-pic -> pxesopic (maintained here!)
-\ITEMxTx  pdfpages -> pxpdfpages (maintained here!)
+\ITEMxTo  textpos -> pxtextpos (gentombow)
+\ITEMxTo  eso-pic -> pxesopic (gentombow)
+\ITEMxTo  pdfpages -> pxpdfpages (gentombow)
 \ITEMoTo  stfloats (sttools) -> pxstfloats (pxsttools)
 \ITEMxTx  hyperref -> pxjahyper (by Takayuki YATO)
 \ITEMoTx  pgfrcs (pgf) -> pxpgfrcs (maintained here!)
