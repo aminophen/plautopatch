@@ -13,7 +13,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxtextpos}
-    [2020/10/08 v0.3e Patch to textpos for tombow]
+    [2020/10/08 v0.3f Patch to textpos for tombow]
 
 %% preparations
 \def\pxtxtpos@pkgname{pxtextpos}
@@ -32,15 +32,14 @@
 \def\pxtxtpos@do{%
   \ifx\tombowtrue\@undefined
     \pxtxtpos@debug{Tombow feature unavailable, no patch applied}%
-    \let\pxtxtpos@switch\relax % skip if-tokens and do nothing
+    \let\pxtxtpos@switch\relax % do nothing
   \fi
   \pxtxtpos@switch}
 %
 \def\pxtxtpos@switch{%
-  \iftombow
-    \let\textblockorigin\pxtxtpos@textblockorigin
-    \ifTP@abspos\textblockorigin{0pt}{0pt}\fi %% reset
-  \fi}
+  \let\textblockorigin\pxtxtpos@textblockorigin
+  \ifTP@abspos\textblockorigin{0pt}{0pt}\fi %% reset
+}
 
 %% known definition
 \def\pxtxtpos@textblockorigin#1#2{%

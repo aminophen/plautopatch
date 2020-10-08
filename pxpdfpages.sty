@@ -15,7 +15,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxpdfpages}
-  [2020/10/08 v0.3e Patch to pdfpages for tombow]
+  [2020/10/08 v0.3f Patch to pdfpages for tombow]
 
 %% preparations
 \def\pxpdpg@pkgname{pxpdfpages}
@@ -42,11 +42,11 @@
 \def\pxpdpg@do{%
   \ifx\tombowtrue\@undefined
     \pxpdpg@debug{Tombow feature unavailable, no patch applied}%
-    \let\pxpdpg@switch\relax % skip if-tokens and do nothing
+    \let\pxpdpg@switch\relax % do nothing
   \fi
   \pxpdpg@switch}
 %
-\def\pxpdpg@switch{\iftombow \pxpdpg@patch@pdfpages \fi}
+\def\pxpdpg@switch{\pxpdpg@patch@pdfpages}
 
 %% patch internal for pdfpages to work with tombow
 %-- Note: this code should be copied to gentombow.sty!

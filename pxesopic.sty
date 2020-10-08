@@ -20,7 +20,7 @@
 %% package declaration
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{pxesopic}
-    [2020/10/08 v0.3e Patch to eso-pic for tombow]
+    [2020/10/08 v0.3f Patch to eso-pic for tombow]
 
 %% preparations
 \def\pxesop@pkgname{pxesopic}
@@ -133,6 +133,8 @@
 %-- similar to bounddvi.sty (checked 2020/10/08 v8.2)
 % detection of \iftombow status is delayed until \AtBeginDocument,
 % to support both (u)pLaTeX kernel and ``gentombow.sty''
+% Note: this package does not consider changing \iftombow status
+% in the middle of a single document.
 \AtBeginDocument{\pxesop@do}
 \def\pxesop@do{%
   \ifx\tombowtrue\@undefined
