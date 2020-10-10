@@ -9,8 +9,15 @@
 %% package declaration
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{pxpgfrcs}
-  [2018/09/21 v0.1 shadings etc in tate class]
-\RequirePackage{pgfrcs}
+  [2020/10/10 v0.2 shadings etc in tate class]
+\RequirePackage{pgfrcs}% pgfutil-latex.def requires everyshi
+\ifx\@EveryShipout@Output\@undefined
+  % LaTeX2e 2020-10-01: an emulation by ``everyshi-ltx.sty''
+  % => pLaTeX2e 2020-10-01 natively supports it
+\else
+  % older: the real ``everyshi.sty'' is loaded
+  \IfFileExists{pxeveryshi.sty}{\RequirePackage{pxeveryshi}}{}
+\fi
 
 % Note: I chose the name "pxpgfrcs.sty"
 % (instead of "pgfutil-platex.def") because
@@ -20,7 +27,6 @@
 %   such an interface like \input pgfutil-platex.def.
 
 % patch pgfutil-latex.def
-\RequirePackage{pxeveryshi}% pgfutil-latex.def requires everyshi
 \def\pgfutil@insertatbegincurrentpagefrombox#1{%
  \edef\pgf@temp{\the\wd\pgfutil@abb}%
  \global\setbox\pgfutil@abb\hbox{%
