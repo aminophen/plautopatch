@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2020/09/27 v0.9j Automated patches for pLaTeX/upLaTeX]
+    [2020/10/14 v0.9k Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageWarningNoLine{plautopatch}{%
@@ -195,7 +195,7 @@
 
 % register patches
 
-\platpc@patch@after{doc}{pldocverb}% (maintained here!)
+\platpc@patch@after{doc}{pldocverb}% platex-tools
 \ifx\enablecjktoken\@undefined
   \platpc@patch@after{tracefnt}{ptrace}% platex
 \else
@@ -205,7 +205,7 @@
 \platpc@patch@after{array}{plarray}% platex-tools
 \platpc@patch@after@both{array}{plext}{plextarray}% platex-tools
 \platpc@patch@after@both{delarray}{plext}{plextdelarray}% platex-tools
-\platpc@patch@after@both{colortbl}{plext}{plextcolortbl}% (maintained here!)
+\platpc@patch@after@both{colortbl}{plext}{plextcolortbl}% platex-tools
 \platpc@patch@after{arydshln}{plarydshln}% (maintained here!)
 \platpc@patch@after@both{arydshln}{plext}{plextarydshln}% (maintained here!)
 \platpc@patch@after{siunitx}{plsiunitx}% (maintained here!)
@@ -226,19 +226,20 @@
 \platpc@patch@before{ftnright}{pxftnright}% platex-tools
 \platpc@patch@after{multicol}{pxmulticol}% platex-tools
 \platpc@patch@after{xspace}{pxxspace}% platex-tools
-\platpc@patch@after{textpos}{pxtextpos}% (maintained here!)
+\platpc@patch@after{textpos}{pxtextpos}% gentombow
 % --- until LaTeX2e 2020-10-01, patching eso-pic automatically
 % --- is not supported by pxesopic
 \@ifl@t@r{\fmtversion}{2020/10/01}%
-  {\platpc@patch@before{eso-pic}{pxesopic}}{}% (maintained here!)
-\platpc@patch@after{pdfpages}{pxpdfpages}% (maintained here!)
+  {\platpc@patch@before{eso-pic}{pxesopic}}{}% gentombow
+\platpc@patch@after{pdfpages}{pxpdfpages}% gentombow
 \platpc@patch@before{stfloats}{pxstfloats}% pxsttools -- (!!)
 % --- in most cases, pxjahyper works without explicit options
 % --- however, in case a user specifies some, delay it
 % --- [TODO] if \AtBeginDocument{\usepackage{hyperref}} appears,
 % ----       writing to \jobname.out (= 'jacommentline' feature)
 % ----       does not work because it's too late.
-\AtBeginDocument{\platpc@patch@after{hyperref}{pxjahyper}}
+\AtBeginDocument
+  {\platpc@patch@after{hyperref}{pxjahyper}}% by Takayuki YATO (ZR)
 
 % for TikZ/PGF
 \platpc@patch@after{pgfrcs}{pxpgfrcs}% (maintained here!)
