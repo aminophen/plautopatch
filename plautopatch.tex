@@ -3,8 +3,11 @@
   \epTeXinputencoding utf8    % ensure utf-8 encoding for platex
 \fi
 
-\documentclass[a4paper]{jsarticle}
+\documentclass[a4paper,english]{jsarticle}
 \usepackage{doc}
+\xspcode"5C=3  % \
+\xspcode"3C=3  % <
+\xspcode"3E=3  % >
 \usepackage{plautopatch}% load this here to make \GetFileInfo work
 \GetFileInfo{plautopatch.sty}
 \title{Package \textsf{plautopatch} \fileversion}
@@ -34,8 +37,12 @@ The package is maintained on GitHub:
 
 \section*{Requirements}
 
-This package depends on \textsf{filehook} package,
-written by Martin Scharrer.
+If \LaTeXe~2020-10-01 or newer is running,
+this package uses the new hook system such as
+\verb+\AddToHook{package/before/...}+ and
+\verb+\AddToHook{package/after/...}+.
+If \LaTeXe\ is older than that, this package depends on
+\textsf{filehook} package (written by Martin Scharrer).
 
 \section*{Usage}
 

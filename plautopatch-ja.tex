@@ -5,6 +5,9 @@
 
 \documentclass[a4paper]{jsarticle}
 \usepackage{doc}
+\xspcode"5C=3  % \
+\xspcode"3C=3  % <
+\xspcode"3E=3  % >
 \usepackage{plautopatch}% load this here to make \GetFileInfo work
 \GetFileInfo{plautopatch.sty}
 \title{Package \textsf{plautopatch} \fileversion}
@@ -35,7 +38,11 @@ p\LaTeX/up\LaTeX{}で動作するソースと通常の\LaTeX{}ソースの
 
 \section*{動作条件}
 
-このパッケージは
+\LaTeXe~2020-10-01以降の場合は、
+カーネルが提供するフックシステムの
+\verb+\AddToHook{package/before/...}+及び
+\verb+\AddToHook{package/after/...}+を利用します。
+\LaTeXe{}が古い場合は、
 \textsf{filehook}パッケージ（Martin Scharrer氏の作）に依存します。
 
 \section*{使い方}
