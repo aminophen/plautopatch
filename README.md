@@ -42,8 +42,12 @@ The following patches are currently registered:
 
 ## Requirements
 
-This package depends on "filehook" package,
-written by Martin Scharrer.
+If LaTeX2e 2020-10-01 or newer is running,
+this package uses the new hook system such as
+`\AddToHook{package/before/...}` and
+`\AddToHook{package/after/...}`.
+If LaTeX2e is older than that, this package depends on
+`filehook` package (written by Martin Scharrer).
 
 ## Miscellaneous
 
