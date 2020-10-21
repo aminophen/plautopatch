@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2020/10/14 v0.9k Automated patches for pLaTeX/upLaTeX]
+    [2020/10/21 v0.9l Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageInfo{plautopatch}{%
@@ -22,6 +22,8 @@
 \def\platpc@err{\PackageError\platpc@pkgname}
 \def\platpc@warn{\PackageWarningNoLine\platpc@pkgname}
 \def\platpc@info{\PackageInfo\platpc@pkgname}
+\let\platpc@debug\@gobble
+%\def\platpc@debug#1{\typeout{\platpc@pkgname: [DEBUG] #1}}% for debug
 
 %% Since LaTeX2e 2020-10-01, most of features in filehook.sty
 %% is available in ltfilehook.dtx.
@@ -60,6 +62,9 @@
 \def\platpc@ifnotdisabled#1{%
   \expandafter\ifx\csname platpc@disable@#1\endcsname\relax
     \expandafter\@firstofone
+  \else
+    \platpc@debug{Patch for #1 is disabled, not applying}%
+    \expandafter\@gobble
   \fi
 }
 
@@ -174,6 +179,7 @@
   \edef\@tempa{\zap@space#1 \@empty}%
   \@for\@tempa:=\@tempa\do{%
     \expandafter\let\csname platpc@disable@\@tempa\endcsname\@empty
+    \platpc@debug{Disabled patch for #1}%
   }%
 }
 \@onlypreamble\plautopatchdisable
