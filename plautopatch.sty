@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2020/11/26 v0.9m Automated patches for pLaTeX/upLaTeX]
+    [2021/02/13 v0.9n Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageInfo{plautopatch}{%
@@ -218,13 +218,17 @@
 \platpc@patch@after{collcell}{plcollcell}% (maintained here!)
 % --- in most cases, pxeverysel can be safely loaded even after everysel
 % --- but it can fail when \AtBeginDocument{everysel} is involved
-\platpc@patch@before{everysel}{pxeverysel}% platex-tools
-% --- since LaTeX2e 2020-10-01, everyshi.sty is merely
+% --- [Update] since LaTeX2e 2021-05-01, everysel.sty is merely
+% --- an emulation by everysel-ltx.sty from firstaid,
+% --- which is supported by pLaTeX2e kernel natively
+\@ifl@t@r{\fmtversion}{2021/05/01}{}%
+  {\platpc@patch@before{everysel}{pxeverysel}}% platex-tools
+% --- [Update] since LaTeX2e 2020-10-01, everyshi.sty is merely
 % --- an emulation by everyshi-ltx.sty from ltshipout.dtx,
 % --- which is supported by pLaTeX2e kernel natively
 \@ifl@t@r{\fmtversion}{2020/10/01}{}%
   {\platpc@patch@after{everyshi}{pxeveryshi}}% platex-tools
-% --- since LaTeX2e 2020-10-01, atbegshi.sty is merely
+% --- [Update] since LaTeX2e 2020-10-01, atbegshi.sty is merely
 % --- an emulation by atbegshi-ltx.sty from ltshipout.dtx,
 % --- which is supported by pLaTeX2e kernel natively
 \@ifl@t@r{\fmtversion}{2020/10/01}{}%
