@@ -160,9 +160,10 @@
   \item \textsf{hyperref}パッケージを使用する場合、パッチを提供する
     \textsf{pxjahyper}パッケージが\textsf{hyperref}の\emph{直後}に
     自動的に読み込まれます。
-    もし\textsf{pxjahyper}パッケージのオプションを使用する場合は、
+    もし\textsf{pxjahyper}パッケージのオプションが必要な場合は、
+    \textsf{hyperref}より前に
     \verb+\PassOptionsToPackage{...}{pxjahyper}+
-    のインタフェースを使用する必要があります（とはいっても、
+    と書くことでオプション衝突のエラーを避けてください（とはいっても、
     \textsf{pxjahyper}はデフォルトの設定でほとんどの場合に
     完璧に動作するため、ほとんど必要ないでしょう）。
 \end{itemize}
