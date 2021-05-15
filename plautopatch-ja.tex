@@ -17,18 +17,18 @@
 
 \maketitle
 
-日本のp\LaTeX/up\LaTeX{}フォーマットや専用パッケージが、
+日本の\pLaTeX/\upLaTeX{}フォーマットや専用パッケージが、
 これらを知らない\LaTeX{}パッケージ（しばしば海外で作られた
 汎用のもの）と衝突することがあります。
 最悪の場合にはエラーが出たり、誤った出力が得られたり
 することがあります。
 
 この\textsf{plautopatch}の目的は、こうした非互換を意識せずに
-済むようにすることです。具体的には、p\LaTeX/up\LaTeX{}と
+済むようにすることです。具体的には、\pLaTeX/\upLaTeX{}と
 衝突するパッケージが使われた場合に、その衝突を解消するパッチを
 提供するパッケージを必要に応じて自動的に読み込みます。
 こうすることで、ソースコードを簡潔にできるだけでなく、
-p\LaTeX/up\LaTeX{}で動作するソースと通常の\LaTeX{}ソースの
+\pLaTeX/\upLaTeX{}で動作するソースと通常の\LaTeX{}ソースの
 見た目を近づけることができます。
 
 このパッケージはGitHubで開発しています。
@@ -154,6 +154,19 @@ p\LaTeX/up\LaTeX{}で動作するソースと通常の\LaTeX{}ソースの
 \end{verbatim}
 のようにコンマで区切っていくつでも除外できます。
 
+\section*{パッケージ特有の注意}
+
+\begin{itemize}
+  \item \textsf{hyperref}パッケージを使用する場合、パッチを提供する
+    \textsf{pxjahyper}パッケージが\textsf{hyperref}の\emph{直後}に
+    自動的に読み込まれます。
+    もし\textsf{pxjahyper}パッケージのオプションを使用する場合は、
+    \verb+\PassOptionsToPackage{...}{pxjahyper}+
+    のインタフェースを使用する必要があります（とはいっても、
+    \textsf{pxjahyper}はデフォルトの設定でほとんどの場合に
+    完璧に動作するため、ほとんど必要ないでしょう）。
+\end{itemize}
+
 \section*{変更履歴}
 
 \begin{itemize}
@@ -176,6 +189,7 @@ p\LaTeX/up\LaTeX{}で動作するソースと通常の\LaTeX{}ソースの
   \item 2020/10/21 v0.9l \verb+\plautopatchdisable+が機能しなかったバグを修正
   \item 2020/11/26 v0.9m \textsf{pgf}最新版に追随
   \item 2021/02/13 v0.9n \textsf{pxeverysel}を不要に（\LaTeXe~2021-05-01対応）
+  \item 2021/05/15 v0.9o \textsf{pxjahyper}の読込を遅延させない
 \end{itemize}
 
 \end{document}

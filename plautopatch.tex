@@ -17,8 +17,8 @@
 
 \maketitle
 
-Japanese \pLaTeX/up\LaTeX\ formats and packages often conflict
-with other \LaTeX\ packages which are unaware of p\LaTeX/up\LaTeX.
+Japanese \pLaTeX/\upLaTeX\ formats and packages often conflict
+with other \LaTeX\ packages which are unaware of \pLaTeX/\upLaTeX.
 In the worst case, such packages throw a fatal error or
 end up with a wrong output.
 
@@ -27,7 +27,7 @@ there should be no need to worry about such incompatibilities,
 because specific patches are loaded automatically
 whenever necessary.
 This helps not only to simplify source files, but also
-to make the appearance of working p\LaTeX/up\LaTeX\ sources
+to make the appearance of working \pLaTeX/\upLaTeX\ sources
 similar to those of ordinary \LaTeX\ ones.
 
 The package is maintained on GitHub:
@@ -156,6 +156,17 @@ a comma-separated list of them:
     \plautopatchdisable{<original package 1>,<original package 2>}
 \end{verbatim}
 
+\section*{Package-specific notice}
+
+\begin{itemize}
+  \item If you use the \textsf{hyperref} package, the patch package
+    \textsf{pxjahyper} is loaded \emph{immediately} after \textsf{hyperref}.
+    If you need some explicit options of \textsf{pxjahyper} (though
+    it should be rare enough because it works almost perfectly without those),
+    you should write \verb+\PassOptionsToPackage{...}{pxjahyper}+
+    to avoid an option clash.
+\end{itemize}
+
 \section*{Change History}
 
 \begin{itemize}
@@ -178,6 +189,7 @@ a comma-separated list of them:
   \item 2020/10/21 v0.9l Bug fix for \verb+\plautopatchdisable+
   \item 2020/11/26 v0.9m Adapt to latest \textsf{pgf}
   \item 2021/02/13 v0.9n Do not require \textsf{pxeverysel} on \LaTeXe~2021-05-01
+  \item 2021/05/15 v0.9o Do not delay \textsf{pxjahyper} loading
 \end{itemize}
 
 \end{document}
