@@ -8,18 +8,31 @@
 %
 % This package is expected to be compatible with
 %   * stfloats.sty in sttools
-%     2012/05/29 v1.1 -- 2017/03/27 v3.3
+%     (2012/05/29 v1.1 -- 2017/03/27 v3.3)
+%   * plcore.ltx in platex
+%     (2001/09/26 v1.2a -- 2021/03/25 v1.3i)
 % Many thanks to lltjp-stfloats.sty in LuaTeX-ja project.
 %
 
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{pxstfloats}
-  [2017/02/19 v0.2 stfloats package for pLaTeX]
+  [2021/05/24 v0.2a stfloats package for pLaTeX]
 \RequirePackage{stfloats}
+
+\ifx\pltx@adjust@wd@outputbox\@undefined
+  % pLaTeX2e <2020-10-01>+2 or older
+  \ifx\pdfprimitive\@undefined % just in case ...
+    \def\pltx@adjust@wd@outputbox{%
+      \ifydir\else\vbox{\hskip\z@}\fi}
+  \else                        % same as plcore.dtx 2021/03/25 v1.3i
+    \def\pltx@adjust@wd@outputbox{%
+      \ifydir\else\vbox{\pdfprimitive\everypar{}\hskip\z@}\fi}
+  \fi
+\fi
 
 %% mostly based on \fn@makecol in stfloats.sty, and
 %% the additions for supporting pLaTeX are based on
-%% pLaTeX2e 2017/04/08 community ed.
+%% pLaTeX2e 2021-06-01 community ed.
 %% the code is essentially compatible with
 %%   fnpos.sty (yafoot) 1999/07/14 v1.0
 %%   |\makeFNmid| + |\makeFNbelow| status.
@@ -49,7 +62,7 @@
             \@texttop
             \dimen@ \dp\@outputbox
             \unvbox \@outputbox
-            \iftdir\vbox{\hskip\z@}\fi %% for pLaTeX
+            \pltx@adjust@wd@outputbox %% for pLaTeX
             \vskip -\dimen@
             \@textbottom
             }%
@@ -59,7 +72,7 @@
 
 %% mostly based on \@makecol in latex.ltx, and
 %% the additions for supporting pLaTeX are based on
-%% pLaTeX2e 2017/04/08 community ed.
+%% pLaTeX2e 2021-06-01 community ed.
 %% the code is essentially compatible with
 %%   fnpos.sty (yafoot) 1999/07/14 v1.0
 %%   |\makeFNmid| + |\makeFNabove| status.
@@ -89,7 +102,7 @@
        \@texttop
        \dimen@ \dp\@outputbox
        \unvbox \@outputbox
-       \iftdir\vbox{\hskip\z@}\fi %% for pLaTeX
+       \pltx@adjust@wd@outputbox %% for pLaTeX
        \vskip -\dimen@
        \@textbottom
        }%
