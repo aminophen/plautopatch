@@ -3,8 +3,9 @@
   \epTeXinputencoding utf8    % ensure utf-8 encoding for platex
 \fi
 
-\documentclass[a4paper]{jsarticle}
+\documentclass[a4paper,dvipdfmx]{jsarticle}
 \usepackage{doc}
+\usepackage[verb]{bxghost}
 \xspcode"5C=3  % \
 \xspcode"3C=3  % <
 \xspcode"3E=3  % >
@@ -40,8 +41,8 @@
 
 \LaTeXe~2020-10-01以降の場合は、
 カーネルが提供するフックシステムの
-\verb+\AddToHook{package/before/...}+及び
-\verb+\AddToHook{package/after/...}+を利用します。
+\verb+\AddToHook{package/.../before}+及び
+\verb+\AddToHook{package/.../after}+を利用します。
 \LaTeXe{}が古い場合は、
 \textsf{filehook}パッケージ（Martin Scharrer氏の作）に依存します。
 
@@ -192,6 +193,7 @@
   \item 2021/02/13 v0.9n \textsf{pxeverysel}を不要に（\LaTeXe{}開発版対応）
   \item 2021/05/15 v0.9o \textsf{pxjahyper}の読込を遅延させない
   \item 2021/05/31 v0.9p \LaTeXe~2021-06-01への準備
+  \item 2021/12/07 v0.91 \LaTeXe~2021-11-15への対応
 \end{itemize}
 
 \end{document}

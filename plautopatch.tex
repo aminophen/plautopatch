@@ -3,7 +3,7 @@
   \epTeXinputencoding utf8    % ensure utf-8 encoding for platex
 \fi
 
-\documentclass[a4paper,english]{jsarticle}
+\documentclass[a4paper,dvipdfmx,english]{jsarticle}
 \usepackage{doc}
 \xspcode"5C=3  % \
 \xspcode"3C=3  % <
@@ -39,8 +39,8 @@ The package is maintained on GitHub:
 
 If \LaTeXe~2020-10-01 or newer is running,
 this package uses the new hook system such as
-\verb+\AddToHook{package/before/...}+ and
-\verb+\AddToHook{package/after/...}+.
+\verb+\AddToHook{package/.../before}+ and
+\verb+\AddToHook{package/.../after}+.
 If \LaTeXe\ is older than that, this package depends on
 \textsf{filehook} package (written by Martin Scharrer).
 
@@ -191,6 +191,7 @@ a comma-separated list of them:
   \item 2021/02/13 v0.9n Do not require \textsf{pxeverysel} on \LaTeXe~develop
   \item 2021/05/15 v0.9o Do not delay \textsf{pxjahyper} loading
   \item 2021/05/31 v0.9p Prepare for \LaTeXe~2021-06-01
+  \item 2021/12/07 v0.9q Adjust for \LaTeXe~2021-11-15
 \end{itemize}
 
 \end{document}

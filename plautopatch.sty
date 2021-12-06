@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2021/05/31 v0.9p Automated patches for pLaTeX/upLaTeX]
+    [2021/12/07 v0.9q Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageInfo{plautopatch}{%
@@ -35,11 +35,15 @@
   \RequirePackage{filehook}
   \let\platpc@ExecuteAfterPackage=\AtEndOfPackageFile
   \let\platpc@ExecuteBeforePackage=\AtBeginOfPackageFile
-\else
-  % LaTeX2e 2020-10-01 or newer
+\else\ifx\ActivateGenericHook\@undefined
+  % between LaTeX2e 2020-10-01 and LaTeX2e 2021-11-15
   \def\platpc@ExecuteAfterPackage#1{\AddToHook{package/after/#1}}
   \def\platpc@ExecuteBeforePackage#1{\AddToHook{package/before/#1}}
-\fi
+\else
+  % LaTeX2e 2021-11-15 or newer
+  \def\platpc@ExecuteAfterPackage#1{\AddToHook{package/#1/after}}
+  \def\platpc@ExecuteBeforePackage#1{\AddToHook{package/#1/before}}
+\fi\fi
 
 % low-level helpers
 
