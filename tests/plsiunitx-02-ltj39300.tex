@@ -5,9 +5,12 @@
 
 \SI{2.5e-10}{mol.L^{-1}}
 
+% Note: param-token "s" unavailable in siunitx v3.0
+% => use \usepackage{siunitx}[=v2] to re-enable this.
+
 \begin{tabular}{Ss}
-    \\  % hang: `ABD: EverySelectfont initializing macros`
-x & \\  % error: `! Use of \@@array doesn't match its definition.`
+    \\  % hang: "ABD: EverySelectfont initializing macros"
+x & \\  % error: "! Use of \@@array doesn't match its definition."
 \end{tabular}
 
 \vrule
