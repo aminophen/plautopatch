@@ -9,13 +9,13 @@
 %   * arydshln.sty
 %     (2004/08/31 v1.71 -- 2019/02/21 v1.76)
 %   * plcore.ltx in platex
-%     (2001/09/26 v1.2a -- 2021/06/03 v1.3j)
+%     (2001/09/26 v1.2a -- 2021/12/08 v1.3l)
 %
 
 %% package declaration
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{plarydshln}
-  [2018/10/20 v0.4 arydshln package for pLaTeX/upLaTeX]
+  [2022/09/13 v0.4a arydshln package for pLaTeX/upLaTeX]
 \RequirePackage{arydshln}
 
 %% handle package compatibility issues beforehand
@@ -24,9 +24,10 @@
 %% patching internal code for arydshln.sty
 %
 %% remove extra \xkanjiskip (pLaTeX2e 2016/04/17)
+%% -- should be in sync with plarray.sty !
 \@ifl@t@r{\pfmtversion}{2016/04/17}{\@firstofone}{\@gobble}
 {% = for pLaTeX2e 2016/04/17 or newer
-\def\endtabular{\endarray $\egroup\null}
+\def\endtabular{\endarray\m@th $\egroup\null}
 \expandafter\let\csname endtabular*\endcsname\endtabular
 }% =
 %
