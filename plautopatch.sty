@@ -8,7 +8,7 @@
 
 \NeedsTeXFormat{LaTeX2e}% not pLaTeX2e on purpose!
 \ProvidesPackage{plautopatch}
-    [2021/12/07 v0.9q Automated patches for pLaTeX/upLaTeX]
+    [2023/02/28 v0.9r Automated patches for pLaTeX/upLaTeX]
 
 \ifx\pfmtname\@undefined
   \PackageInfo{plautopatch}{%
@@ -206,10 +206,10 @@
 % register patches
 
 \platpc@patch@after{doc}{pldocverb}% platex-tools
-\ifx\enablecjktoken\@undefined
-  \platpc@patch@after{tracefnt}{ptrace}% platex
-\else
+\ifnum\jis"2121="3000
   \platpc@patch@after{tracefnt}{uptrace}% uplatex
+\else
+  \platpc@patch@after{tracefnt}{ptrace}% platex
 \fi
 \platpc@patch@after{fltrace}{pfltrace}% platex
 \platpc@patch@after{array}{plarray}% platex-tools
